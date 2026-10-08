@@ -190,7 +190,7 @@ section { padding: 96px 0; }
 .group-head { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--surface-2); font-size: 12px; font-weight: 500; color: var(--ink-muted); border-bottom: 1px solid var(--hairline); }
 .group-head .count { color: var(--ink-tertiary); }
 .ticket {
-  display: grid; grid-template-columns: 16px 64px 1fr auto auto; align-items: center; gap: 14px;
+  display: grid; grid-template-columns: 16px 64px 1fr auto; align-items: center; gap: 14px;
   padding: 11px 16px; border-bottom: 1px solid var(--hairline); font-size: 14px;
   animation: rowIn 700ms var(--ease-out) both; animation-delay: calc(1500ms + var(--i) * 90ms);
   transition: background-color 150ms ease;
@@ -202,14 +202,12 @@ section { padding: 96px 0; }
 .ticket-title { color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ticket-tag { font-size: 12px; color: var(--ink-subtle); display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border: 1px solid var(--hairline); border-radius: 999px; }
 .ticket-tag i { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
-.ticket-date { font-size: 12px; color: var(--ink-tertiary); width: 52px; text-align: right; }
 .status { width: 14px; height: 14px; border-radius: 50%; display: grid; place-items: center; background: var(--primary); }
 .status svg { width: 9px; height: 9px; }
 .ticket .status { animation: pop 500ms var(--ease-out) both; animation-delay: calc(1750ms + var(--i) * 90ms); }
 .ticket .status path { stroke-dasharray: 10; animation: draw 450ms var(--ease-out) both; animation-delay: calc(1900ms + var(--i) * 90ms); }
 @keyframes pop { from { transform: scale(.5); opacity: 0; } }
 @keyframes draw { from { stroke-dashoffset: 10; } }
-.new-badge { font-size: 11px; font-weight: 500; color: var(--primary-hover); margin-left: 8px; }
 
 /* Scroll reveal */
 .js [data-reveal] {
@@ -258,59 +256,6 @@ section { padding: 96px 0; }
 .skill-list li::before { content: ""; flex: none; width: 4px; height: 4px; border-radius: 50%; background: var(--ink-tertiary); transform: translateY(-3px); }
 .badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; padding: 1px 7px; border-radius: 999px; background: rgba(94,106,210,.14); color: var(--primary-hover); white-space: nowrap; }
 .badge.soon { background: var(--surface-3); color: var(--ink-subtle); }
-
-/* Discoveries */
-.discover { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.discover .card { padding: 28px 24px; gap: 10px; }
-.discover .num { font-family: var(--mono); font-size: 12px; color: var(--primary-hover); }
-.big-num { font-size: 56px; font-weight: 600; letter-spacing: -2px; line-height: 1; margin: 8px 0 6px; }
-
-/* Journal */
-.tabs-wrap { position: relative; display: inline-block; max-width: 100%; margin-bottom: 24px; }
-.tabs { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--hairline); border-radius: 999px; flex-wrap: wrap; }
-.tab { display: inline-flex; align-items: center; justify-content: center; gap: 4px; white-space: nowrap; font: 500 14px/1.2 var(--font); color: var(--ink-subtle); background: transparent; border: 0; padding: 8px 14px; border-radius: 999px; cursor: pointer; min-height: 36px; transition: color 150ms ease; }
-.tab:hover { color: var(--ink-muted); }
-.tab .r { font-weight: 400; opacity: .7; }
-.tabs-copy {
-  position: absolute; inset: 0; pointer-events: none; border-color: transparent;
-  clip-path: inset(4px 100% 4px 4px round 999px);
-  transition: clip-path 350ms var(--ease-in-out);
-}
-.tabs-copy .tab { background: var(--surface-3); color: var(--ink); }
-@media (max-width: 960px) { .tab .r { display: none; } }
-@media (max-width: 480px) {
-  .tabs-wrap { display: block; }
-  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-radius: 12px; }
-  .tab { padding: 8px 4px; font-size: 13px; border-radius: 8px; }
-}
-.journal { border-top: 1px solid var(--hairline); min-height: 200px; }
-.day { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--hairline); animation: fadeUp 600ms var(--ease-out) both; animation-delay: calc(var(--i) * 60ms); }
-.day-date { font-size: 14px; color: var(--ink-muted); font-weight: 500; }
-.day ul { display: flex; flex-direction: column; gap: 8px; font-size: 15px; }
-.day li { display: flex; gap: 10px; align-items: baseline; color: var(--ink-muted); }
-.day li::before { content: ""; flex: none; width: 4px; height: 4px; border-radius: 50%; background: var(--ink-tertiary); transform: translateY(-3px); }
-.journal-note { margin-top: 16px; font-size: 13px; color: var(--ink-tertiary); }
-
-/* Projects */
-.project { padding: 0; gap: 0; }
-.project-visual {
-  height: 150px; background: var(--surface-2); border-bottom: 1px solid var(--hairline);
-  border-radius: 11px 11px 0 0; font-family: var(--mono); font-size: 12px; color: var(--ink-subtle);
-}
-.project-body { padding: 24px; display: flex; flex-direction: column; gap: 12px; }
-.steps { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--ink-subtle); counter-reset: s; }
-.steps li { counter-increment: s; display: flex; gap: 10px; }
-.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); color: var(--ink-tertiary); font-size: 12px; }
-.term { height: 100%; padding: 18px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; line-height: 1.6; }
-.term-dots { display: flex; gap: 6px; margin-bottom: 8px; }
-.term-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--hairline-strong); }
-.term .tl { white-space: nowrap; width: fit-content; }
-.term .ok { color: var(--success); }
-.term .p { color: var(--primary-hover); }
-.caret { display: inline-block; width: 7px; height: 13px; background: var(--ink-muted); vertical-align: -2px; margin-left: 4px; animation: blink 1s steps(1) infinite; }
-@keyframes blink { 50% { opacity: 0; } }
-.js .term .tl { clip-path: inset(0 100% 0 0); transition: clip-path 900ms steps(30, end); transition-delay: calc(500ms + var(--t) * 950ms); }
-.js .is-in .term .tl { clip-path: inset(0 0 0 0); }
 
 /* Timeline */
 .timeline { position: relative; display: flex; flex-direction: column; border: 1px solid var(--hairline); border-radius: 12px; background: var(--surface-1); }
@@ -387,8 +332,6 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
 @media (max-width: 1024px) {
   h1 { font-size: 56px; letter-spacing: -1.8px; }
   .grid { grid-template-columns: repeat(2, 1fr); }
-  .ticket { grid-template-columns: 16px 56px 1fr auto; }
-  .ticket-date { display: none; }
 }
 @media (max-width: 768px) {
   .container { padding: 0 16px; }
@@ -401,12 +344,11 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   .lead { font-size: 16px; }
   .stats { grid-template-columns: repeat(2, 1fr); }
   .stat, .stat + .stat { padding: 20px 0 0; border-left: 0; }
-  .grid, .discover { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; }
   .panel-wrap { margin-top: 48px; }
   .panel-filters { display: none; }
   .ticket { grid-template-columns: 16px 1fr; gap: 10px; }
   .ticket-id, .ticket-tag { display: none; }
-  .day { grid-template-columns: 1fr; gap: 10px; }
   .tl-row { grid-template-columns: 1fr; gap: 6px; }
   .parcours { grid-template-columns: 1fr; gap: 32px; }
   .road-track { left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent); mask-image: linear-gradient(180deg, #000 80%, transparent); }
@@ -420,13 +362,11 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .w > span, .intro, .panel, .ticket, .ticket .status, .day { animation-name: fadeOnly; }
+  .w > span, .intro, .panel, .ticket, .ticket .status { animation-name: fadeOnly; }
   .ticket .status path { animation: none; }
-  .panel::after, .dot::after, .caret, .progress { animation: none; }
+  .panel::after, .dot::after, .progress { animation: none; }
   .progress { display: none; }
   .js [data-reveal] { transform: none; transition: opacity 400ms ease; }
-  .js .term .tl { clip-path: none; transition: none; }
-  .tabs-copy { transition: none; }
   .road-fill { transition: none; }
   .road-step.now .road-dot::after { animation: none; }
   .js .road-step > :not(.road-dot) { transform: none; }
@@ -442,8 +382,6 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
     <a href="#top" class="brand"><span class="brand-mark" data-initials>PN</span><span data-name>Prénom Nom</span></a>
     <nav class="nav-links" aria-label="Navigation principale">
       <a href="#competences">Compétences</a>
-      <a href="#stage">Stage</a>
-      <a href="#projets">Projets</a>
       <a href="#parcours">Parcours</a>
       <a href="#objectif">Objectif</a>
     </nav>
@@ -469,27 +407,27 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
       <p class="lead intro" style="--i:2">Je m'appelle Swan, élève en Terminale CIEL au lycée Maryse Bastié. Ce portfolio rassemble ce que j'ai appris en atelier, au contact des clients et en cours, avec un objectif : devenir ingénieur en cybersécurité.</p>
       <div class="hero-ctas intro" style="--i:3">
         <a href="#competences" class="btn btn-primary">Voir mes compétences <span class="arrow">→</span></a>
-        <a href="#stage" class="btn btn-secondary">Journal de stage</a>
+        <a href="#parcours" class="btn btn-secondary">Mon parcours</a>
       </div>
 
       <div class="stats intro" style="--i:4">
         <div class="stat"><div class="stat-num" data-count="5">5</div><div class="stat-label">mois de formation en entreprise</div></div>
         <div class="stat"><div class="stat-num" data-count="9">9</div><div class="stat-label">domaines de compétences</div></div>
-        <div class="stat"><div class="stat-num" data-count="3">3</div><div class="stat-label">projets menés en entreprise</div></div>
+        <div class="stat"><div class="stat-num" data-count="2">2</div><div class="stat-label">entreprises d'informatique</div></div>
         <div class="stat"><div class="stat-num" data-count="3">3</div><div class="stat-label">saisons bénévole au FC Guéret</div></div>
       </div>
 
       <div class="panel-wrap">
-        <div class="panel" aria-label="Exemples d'interventions réalisées">
+        <div class="panel" aria-label="Principaux savoir-faire">
           <div class="panel-bar">
-            <div class="panel-title"><span class="brand-mark" data-initials>PN</span>Atelier · Interventions</div>
+            <div class="panel-title"><span class="brand-mark" data-initials>PN</span>Atelier · Savoir-faire</div>
             <div class="panel-filters">
               <span class="chip on">Toutes</span><span class="chip">Matériel</span><span class="chip">Systèmes</span><span class="chip">Mobile</span>
             </div>
           </div>
           <div class="group-head">
             <span class="status"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5.2l2 2 4-4.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            Terminé <span class="count">6</span>
+            Maîtrisé <span class="count">6</span>
           </div>
           <div id="tickets"></div>
         </div>
@@ -502,111 +440,9 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
       <div class="section-head" data-reveal>
         <span class="eyebrow">Compétences</span>
         <h2 class="grad">Ce que je sais faire</h2>
-        <p class="lead">Neuf domaines, du diagnostic matériel à la relation client. Les badges <span class="badge">Nouveau</span> marquent ce que j'ai découvert pendant mon stage de mars 2026.</p>
+        <p class="lead">Neuf domaines, du diagnostic matériel à la relation client, appris en entreprise et en cours.</p>
       </div>
       <div class="grid" id="skills" data-stagger></div>
-    </div>
-  </section>
-
-  <section style="padding-top: 0">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Ce que le stage m'a appris</span>
-        <h2 class="grad">Trois compétences nouvelles</h2>
-        <p class="lead">Le reste du stage m'a servi à pratiquer et perfectionner ce que je maîtrisais déjà. Ces trois-là, je les ai découvertes sur place.</p>
-      </div>
-      <div class="discover" data-stagger>
-        <div class="card"><span class="num">01</span><h3>Installation de macOS</h3><p>Réinstallation complète sur un Mac bloqué par une erreur au démarrage, puis configuration d'un Mac pour un client.</p></div>
-        <div class="card"><span class="num">02</span><h3>Messagerie &amp; SMTP</h3><p>Diagnostic et reconnexion d'une boîte mail à son serveur d'envoi SMTP.</p></div>
-        <div class="card"><span class="num">03</span><h3>Clé USB Ventoy</h3><p>Création d'une clé multi-boot avec mes outils, utilisée ensuite pour cloner un disque et débloquer un compte Windows.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="stage">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">PFMP · 9 mars → 3 avril 2026</span>
-        <h2 class="grad">Journal de stage</h2>
-        <p class="lead">Quatre semaines en boutique de réparation informatique : atelier, accueil, interventions chez les clients. Chaque journée commençait par la prise des appels clients.</p>
-      </div>
-      <div data-reveal>
-        <div class="tabs-wrap">
-          <div class="tabs" role="tablist" aria-label="Semaines de stage" id="tabs"></div>
-          <div class="tabs tabs-copy" aria-hidden="true" id="tabsCopy"></div>
-        </div>
-        <div class="journal" id="journal" role="tabpanel"></div>
-        <p class="journal-note">Réunion d'équipe chaque mardi matin avec l'entreprise.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="projets">
-    <div class="container">
-      <div class="section-head" data-reveal>
-        <span class="eyebrow">Projets</span>
-        <h2 class="grad">Réalisations en boutique</h2>
-        <p class="lead">Au-delà des réparations, trois projets que j'ai menés de A à Z pendant mes périodes en entreprise.</p>
-      </div>
-      <div class="grid" data-stagger>
-        <article class="card project">
-          <div class="project-visual">
-            <div class="term">
-              <div class="term-dots"><i></i><i></i><i></i></div>
-              <span class="tl" style="--t:0"><span class="p">$</span> nfc write --tag avis-accueil</span>
-              <span class="tl muted" style="--t:1">→ lien vers la page d'avis</span>
-              <span class="tl ok" style="--t:2">✓ pancarte installée<span class="caret"></span></span>
-            </div>
-          </div>
-          <div class="project-body">
-            <h3>Avis clients sans contact</h3>
-            <p>Une pancarte à l'accueil : le client approche son téléphone et laisse un avis en un geste.</p>
-            <ol class="steps">
-              <li>Conception de la pancarte</li>
-              <li>Commande et préparation des tags NFC</li>
-              <li>Installation à l'accueil</li>
-            </ol>
-          </div>
-        </article>
-        <article class="card project">
-          <div class="project-visual">
-            <div class="term">
-              <div class="term-dots"><i></i><i></i><i></i></div>
-              <span class="tl" style="--t:0"><span class="p">$</span> ventoy -i /dev/usb</span>
-              <span class="tl muted" style="--t:1">+ ISO &amp; utilitaires de dépannage</span>
-              <span class="tl ok" style="--t:2">✓ clonage disque · reset mdp<span class="caret"></span></span>
-            </div>
-          </div>
-          <div class="project-body">
-            <h3>Clé USB Ventoy multi-outils</h3>
-            <p>Une seule clé bootable qui regroupe les systèmes et logiciels de dépannage de l'atelier.</p>
-            <ol class="steps">
-              <li>Création de la clé Ventoy</li>
-              <li>Ajout des logiciels et images</li>
-              <li>Clonage d'un disque et déblocage d'un compte Windows</li>
-            </ol>
-          </div>
-        </article>
-        <article class="card project">
-          <div class="project-visual">
-            <div class="term">
-              <div class="term-dots"><i></i><i></i><i></i></div>
-              <span class="tl" style="--t:0"><span class="p">$</span> identite --visuelle</span>
-              <span class="tl muted" style="--t:1">logo · affiches · signalétique</span>
-              <span class="tl ok" style="--t:2">✓ boutique réaménagée<span class="caret"></span></span>
-            </div>
-          </div>
-          <div class="project-body">
-            <h3>Identité visuelle &amp; signalétique</h3>
-            <p>Création d'une identité visuelle pour l'entreprise, des affiches du magasin et réflexion sur un nouvel agencement.</p>
-            <ol class="steps">
-              <li>Identité visuelle de l'entreprise</li>
-              <li>Affiches de signalétique et de vente</li>
-              <li>Réaménagement du poste d'accueil</li>
-            </ol>
-          </div>
-        </article>
-      </div>
     </div>
   </section>
 
@@ -686,7 +522,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   <div class="container foot">
     <span>© <span id="year"></span> <span data-name>Prénom Nom</span> · Portfolio hébergé sur GitHub Pages</span>
     <div class="foot-links">
-      <a href="#competences">Compétences</a><a href="#stage">Stage</a><a href="#projets">Projets</a>
+      <a href="#competences">Compétences</a><a href="#parcours">Parcours</a><a href="#objectif">Objectif</a>
     </div>
   </div>
 </footer>
@@ -717,67 +553,35 @@ const SKILLS = [
   { i: "cpu", t: "Montage & maintenance matériel", d: "Montage, diagnostic et réparation de tous types d'ordinateurs : fixes, portables, tout-en-un et Mac.",
     l: ["Montage et préparation de PC", "Diagnostic et réparation de pannes matérielles", "Remplacement de composants : disques, mémoire, processeurs, cartes graphiques", "Refroidissement : ventilateurs, ventirads, pâte thermique", "Remplacement d'écrans de PC portables", "Nettoyage et entretien complet"] },
   { i: "os", t: "Systèmes d'exploitation", d: "Installation, dépannage et optimisation de Windows et macOS.",
-    l: ["Installation et réinstallation de Windows", ["Installation et configuration de macOS", 1], "Réparation des erreurs de démarrage", "Réinstallation en conservant les données", "Nettoyage, optimisation, antivirus et suppression de virus", "Déblocage de mots de passe locaux"] },
+    l: ["Installation et réinstallation de Windows et macOS", "Réparation des erreurs de démarrage", "Réinstallation en conservant les données", "Nettoyage, optimisation, antivirus et suppression de virus", "Déblocage de mots de passe locaux"] },
   { i: "disk", t: "Stockage & données", d: "Sauvegarder, récupérer et déplacer les données sans rien perdre.",
-    l: ["Clonage de disques durs et SSD", "Récupération et transfert de données, notamment avec un IODD", "Formatage et réparation de disques", "Diagnostic de l'état des disques et SSD", ["Clé USB Ventoy multi-outils de dépannage", 1]] },
+    l: ["Clonage de disques durs et SSD", "Récupération et transfert de données (IODD)", "Formatage et réparation de disques", "Diagnostic de l'état des disques et SSD", "Création de clés USB de dépannage multi-boot (Ventoy)"] },
   { i: "print", t: "Imprimantes & périphériques", d: "Diagnostic, entretien et configuration d'imprimantes, de scanners et de périphériques.",
     l: ["Diagnostic et réparation d'imprimantes", "Entretien : têtes d'impression, cartouches", "Installation et configuration d'imprimantes et de scanners", "Dépannage de claviers et périphériques"] },
   { i: "phone", t: "Téléphonie mobile", d: "Réparation de smartphones toutes marques, du diagnostic à la pièce.",
     l: ["Remplacement de batteries", "Remplacement d'écrans", "Diagnostic de téléphones qui ne s'allument plus", "Commande de pièces détachées"] },
   { i: "net", t: "Réseau & messagerie", d: "Remettre une machine en ligne et rétablir l'envoi des mails.",
-    l: ["Dépannage de connexion et de cartes réseau", ["Configuration de messageries (SMTP)", 1], "Remise en service de postes en réseau"] },
+    l: ["Dépannage de connexion et de cartes réseau", "Configuration de messageries (SMTP)", "Remise en service de postes en réseau"] },
   { i: "deploy", t: "Déploiement de postes", d: "Préparer un poste prêt à l'emploi pour un particulier ou une entreprise.",
     l: ["Installation et configuration de postes neufs, PC et Mac", "Migration des données et des logiciels", "Mise en place de postes en entreprise", "Aménagement de postes de travail"] },
   { i: "recycle", t: "Gestion & reconditionnement", d: "Faire tourner l'atelier et donner une seconde vie aux ordinateurs.",
     l: ["Gestion des stocks, commandes et factures", "Estimation des réparations et du prix de revente", "Reconditionnement : remise à zéro, nettoyage, mise en vente", "Réception du matériel et organisation de l'atelier"] },
   { i: "user", t: "Relation client & communication", d: "Accueil, conseil, vente et supports visuels.",
-    l: ["Accueil, conseil et vente en magasin", "Gestion des appels et suivi des clients", "Interventions chez les clients", "Identité visuelle, affiches et signalétique", "Communication digitale (FC Guéret)"] },
+    l: ["Accueil, conseil et vente en magasin", "Gestion des appels et suivi des clients", "Interventions chez les clients", "Création d'identités visuelles, d'affiches et de signalétique", "Mise en place de solutions sans contact (tags NFC)", "Communication digitale"] },
 ];
 
 const TICKETS = [
-  ["ATL-102", "Réinstallation de macOS — erreur au démarrage", "Systèmes", "#5e6ad2", "10 mars", true],
-  ["ATL-118", "Changement de carte graphique sur PC gamer", "Matériel", "#f2994a", "10 mars", false],
-  ["ATL-131", "Reconnexion d'une boîte mail au serveur SMTP", "Réseau", "#27a644", "19 mars", true],
-  ["ATL-147", "Imprimante qui imprime en rose", "Imprimantes", "#f2c94c", "25 mars", false],
-  ["ATL-156", "Remplacement de batterie sur smartphone", "Mobile", "#8a8f98", "27 mars", false],
-  ["ATL-163", "Création d'une clé USB Ventoy et clonage d'un disque", "Outils", "#5e6ad2", "1 avr.", true],
-];
-
-const WEEKS = [
-  { label: "Semaine 1", range: "9 → 13 mars", days: [
-    ["Lundi", "9 mars", ["Remplacement d'un ventirad", "Diagnostic de la batterie d'un Mac", "Démontage d'un PC portable et vérification d'un emplacement pour un disque", "Diagnostic de deux imprimantes (pages blanches, impression défectueuse) et nettoyage des têtes", "Réparation d'un PC qui ne démarrait plus", "Réinstallation complète de Windows en conservant les données"]],
-    ["Mardi", "10 mars", ["Changement d'une carte graphique sur un PC gamer", "Réflexion sur un nouvel agencement de la boutique", "Démontage et test d'un disque dur", ["Réinstallation de macOS sur un Mac en erreur au démarrage", 1], "Changement des cartouches et nettoyage des têtes d'une imprimante", "Nettoyage physique complet d'un PC portable"]],
-    ["Mercredi", "11 mars", ["Nettoyage logiciel d'un PC portable", "Récupération des données d'un disque dur et transfert vers un nouveau disque", "Intervention chez un client", "Réparation d'une imprimante et d'un ordinateur", "Création d'affiches pour le magasin"]],
-    ["Jeudi", "12 mars", ["Finalisation de la signalétique du magasin", "Préparation d'un nouveau poste client et transfert des données", "Diagnostic et réparation d'un PC qui ne démarrait plus", "Changement du disque d'un PC", "Nettoyage d'une tête d'impression"]],
-    ["Vendredi", "13 mars", ["Remontage d'un PC", "Diagnostic et résolution d'un problème de pavé numérique sur un ordinateur neuf", "Suppression d'un mot de passe Windows à l'aide d'un logiciel"]],
-  ]},
-  { label: "Semaine 2", range: "16 → 20 mars", days: [
-    ["Lundi", "16 mars", ["Estimation du coût de réparation d'un ordinateur", "Estimation du prix de revente d'un ordinateur", "Préparation d'un ordinateur pour le reconditionnement", "Diagnostic d'un Mac affichant une erreur au démarrage"]],
-    ["Mardi", "17 mars", ["Remontage d'un vieux PC pour en faire un outil d'atelier", "Résolution d'un problème de carte réseau sur un PC portable", "Remontage et test d'un ordinateur tout-en-un"]],
-    ["Mercredi", "18 mars", ["Diagnostic d'un téléphone qui ne démarrait plus et commande d'une batterie", "Démontage du SSD d'un tout-en-un et clonage vers un nouveau PC", "Remise à zéro d'un PC portable et préparation à la vente en reconditionné", "Création d'une pancarte pour les avis clients et commande de tags NFC"]],
-    ["Jeudi", "19 mars", ["Nettoyage d'un ordinateur et installation d'un antivirus", ["Reconnexion d'une boîte mail au serveur SMTP", 1], "Préparation d'un nouveau poste et transfert des données", "Changement de batterie d'un iPhone 12", "Changement de pâte thermique d'un PC portable", "Création d'une affiche de vente pour un ordinateur", "Appel d'une cliente pour l'informer que son ordinateur était prêt"]],
-    ["Vendredi", "20 mars", ["Préparation des tags NFC", "Mise en place du système d'avis sans contact", "Installation de la pancarte à l'accueil"]],
-  ]},
-  { label: "Semaine 3", range: "23 → 27 mars", days: [
-    ["Lundi", "23 mars", ["Transfert de données", "Diagnostic d'un ordinateur qui ne fonctionnait plus"]],
-    ["Mercredi", "25 mars", ["Réception de colis", "Résolution d'un problème d'imprimante qui imprimait en rose", "Nettoyage physique et logiciel d'un PC", "Préparation d'un nouvel ordinateur et transfert des données"]],
-    ["Jeudi", "26 mars", ["Résolution d'un problème d'imprimante qui n'imprimait plus", "Clonage d'un disque", "Remplacement du PC de l'accueil et réaménagement du poste", "Transfert de fichiers vers le nouveau PC"]],
-    ["Vendredi", "27 mars", ["Diagnostic d'un SSD", "Tri des câbles de l'atelier", "Changement de batterie d'un iPhone 14"]],
-  ]},
-  { label: "Semaine 4", range: "30 mars → 3 avril", days: [
-    ["Lundi", "30 mars", ["Préparation de deux postes informatiques (avec et sans transfert de fichiers)", "Configuration d'un scanner"]],
-    ["Mardi", "31 mars", ["Livraison d'un ordinateur pour une entreprise avec XEFI", "Réparation de la dalle d'un ordinateur portable", "Changement de l'écran d'un téléphone"]],
-    ["Mercredi", "1er avril", [["Création d'une clé USB Ventoy", 1], "Ajout des logiciels de dépannage sur la clé", "Clonage d'un disque avec la clé Ventoy"]],
-    ["Jeudi", "2 avril", ["Reconfiguration de plusieurs imprimantes", "Configuration d'un Mac", "Suppression d'un mot de passe Windows avec la clé USB"]],
-    ["Vendredi", "3 avril", ["Préparation d'un poste informatique et transfert des données"]],
-  ]},
+  ["MAT-01", "Diagnostic et réparation de PC et de Mac", "Matériel", "#f2994a"],
+  ["SYS-02", "Installation et dépannage de Windows et macOS", "Systèmes", "#5e6ad2"],
+  ["DAT-03", "Clonage, récupération et transfert de données", "Données", "#8a8f98"],
+  ["MOB-04", "Réparation de smartphones : batteries et écrans", "Mobile", "#27a644"],
+  ["IMP-05", "Dépannage et configuration d'imprimantes", "Périphériques", "#f2c94c"],
+  ["RES-06", "Configuration réseau et messagerie", "Réseau", "#5e6ad2"],
 ];
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-const item = x => Array.isArray(x)
-  ? `<li><span>${esc(x[0])} <span class="badge">Nouveau</span></span></li>`
-  : `<li><span>${esc(x)}</span></li>`;
+const item = x => `<li><span>${esc(x)}</span></li>`;
 
 document.getElementById("skills").innerHTML = SKILLS.map(s => `
   <article class="card">
@@ -788,55 +592,13 @@ document.getElementById("skills").innerHTML = SKILLS.map(s => `
   </article>`).join("");
 
 const check = '<span class="status"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5.2l2 2 4-4.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
-document.getElementById("tickets").innerHTML = TICKETS.map(([id, title, tag, color, date, isNew], i) => `
+document.getElementById("tickets").innerHTML = TICKETS.map(([id, title, tag, color], i) => `
   <div class="ticket" style="--i:${i}">
     ${check}
     <span class="ticket-id">${id}</span>
-    <span class="ticket-title">${esc(title)}${isNew ? '<span class="new-badge">Nouveau</span>' : ""}</span>
+    <span class="ticket-title">${esc(title)}</span>
     <span class="ticket-tag"><i style="background:${color}"></i>${tag}</span>
-    <span class="ticket-date">${date}</span>
   </div>`).join("");
-
-// Journal tabs: the active pill is a clipped copy of the tab list
-const tabs = document.getElementById("tabs");
-const tabsCopy = document.getElementById("tabsCopy");
-const journal = document.getElementById("journal");
-const tabHtml = WEEKS.map((w, i) => `<button class="tab" role="tab" data-w="${i}">${w.label} <span class="r">· ${w.range}</span></button>`).join("");
-tabs.innerHTML = tabHtml;
-tabsCopy.innerHTML = tabHtml.replaceAll(' role="tab"', "").replaceAll("<button", "<span").replaceAll("</button>", "</span>");
-let current = 0;
-function placeIndicator() {
-  const b = tabs.children[current];
-  const wrap = tabs.parentElement;
-  const top = b.offsetTop, left = b.offsetLeft;
-  const right = wrap.clientWidth - left - b.offsetWidth;
-  const bottom = wrap.clientHeight - top - b.offsetHeight;
-  const radius = getComputedStyle(b).borderTopLeftRadius;
-  tabsCopy.style.clipPath = `inset(${top}px ${right}px ${bottom}px ${left}px round ${radius})`;
-}
-function showWeek(w) {
-  current = w;
-  [...tabs.children].forEach((b, i) => {
-    b.setAttribute("aria-selected", i === w);
-    b.tabIndex = i === w ? 0 : -1;
-  });
-  placeIndicator();
-  journal.innerHTML = WEEKS[w].days.map(([d, date, acts], i) => `
-    <div class="day" style="--i:${i}">
-      <div class="day-date">${d} ${date}</div>
-      <ul>${acts.map(item).join("")}</ul>
-    </div>`).join("");
-}
-tabs.addEventListener("click", e => { const b = e.target.closest(".tab"); if (b && +b.dataset.w !== current) showWeek(+b.dataset.w); });
-tabs.addEventListener("keydown", e => {
-  const dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
-  if (!dir) return;
-  const n = (current + dir + WEEKS.length) % WEEKS.length;
-  showWeek(n); tabs.children[n].focus();
-});
-addEventListener("resize", placeIndicator);
-document.fonts?.ready.then(placeIndicator);
-showWeek(0);
 
 // Profile
 const initials = PROFIL.nom.split(/\s+/).map(p => p[0]).join("").slice(0, 2).toUpperCase();
