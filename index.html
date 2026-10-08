@@ -591,11 +591,11 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
       <div class="cta" data-reveal>
         <div>
           <h2>Un stage, une alternance, une panne ?</h2>
-          <p class="muted" style="margin-top:10px">Je réponds rapidement par mail.</p>
+          <p class="muted" style="margin-top:10px">Retrouve mes projets et contacte-moi sur GitHub.</p>
         </div>
         <div class="cta-actions">
           <a class="btn btn-primary" data-email href="#">Envoyer un mail <span class="arrow">→</span></a>
-          <a class="btn btn-secondary" data-github href="#" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-secondary" data-github href="#" target="_blank" rel="noopener">GitHub <span class="arrow">→</span></a>
           <a class="btn btn-secondary" data-linkedin href="#" target="_blank" rel="noopener">LinkedIn</a>
         </div>
       </div>
@@ -615,10 +615,10 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
 <script>
 // ✏️ Modifie ces infos avec les tiennes
 const PROFIL = {
-  nom: "Prénom Nom",
-  email: "ton.email@exemple.com",
-  github: "https://github.com/ton-pseudo",
-  linkedin: "https://www.linkedin.com/in/ton-profil",
+  nom: "skz351",
+  email: "",
+  github: "https://github.com/skz351",
+  linkedin: "",
 };
 
 const ICONS = {
@@ -763,9 +763,12 @@ showWeek(0);
 const initials = PROFIL.nom.split(/\s+/).map(p => p[0]).join("").slice(0, 2).toUpperCase();
 document.querySelectorAll("[data-name]").forEach(el => el.textContent = PROFIL.nom);
 document.querySelectorAll("[data-initials]").forEach(el => el.textContent = initials);
-document.querySelector("[data-email]").href = "mailto:" + PROFIL.email;
-document.querySelector("[data-github]").href = PROFIL.github;
-document.querySelector("[data-linkedin]").href = PROFIL.linkedin;
+[["email", PROFIL.email && "mailto:" + PROFIL.email], ["github", PROFIL.github], ["linkedin", PROFIL.linkedin]]
+  .forEach(([key, url]) => {
+    const el = document.querySelector(`[data-${key}]`);
+    if (url) el.href = url; else el.remove();
+  });
+document.querySelector(".cta .btn")?.classList.replace("btn-secondary", "btn-primary");
 document.getElementById("year").textContent = new Date().getFullYear();
 
 // Scroll reveal, staggered per row
