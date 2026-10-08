@@ -1,0 +1,820 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio — Maintenance informatique</title>
+<meta name="description" content="Portfolio : maintenance informatique, systèmes, données, imprimantes, mobiles et relation client.">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #5e6ad2;
+  --primary-hover: #828fff;
+  --primary-focus: #5e69d1;
+  --ink: #f7f8f8;
+  --ink-muted: #d0d6e0;
+  --ink-subtle: #8a8f98;
+  --ink-tertiary: #62666d;
+  --canvas: #010102;
+  --surface-1: #0f1011;
+  --surface-2: #141516;
+  --surface-3: #18191a;
+  --hairline: #23252a;
+  --hairline-strong: #34343a;
+  --success: #27a644;
+  --font: "Inter", -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --max: 1200px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+body {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.05px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+ul, ol { list-style: none; }
+:focus-visible { outline: 2px solid rgba(94, 105, 209, 0.5); outline-offset: 2px; border-radius: 6px; }
+::selection { background: rgba(94, 106, 210, 0.4); }
+
+.container { max-width: var(--max); margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
+
+/* Scroll progress */
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 20;
+  background: linear-gradient(90deg, var(--primary), var(--primary-hover));
+  transform: scaleX(0); transform-origin: left;
+}
+@supports (animation-timeline: scroll()) {
+  .progress { animation: grow linear both; animation-timeline: scroll(root); }
+}
+@keyframes grow { to { transform: scaleX(1); } }
+
+/* Nav */
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(1, 1, 2, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 250ms ease, background-color 250ms ease;
+}
+.nav.scrolled { border-bottom-color: var(--hairline); background: rgba(1, 1, 2, 0.85); }
+.nav-inner { height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 14px; }
+.brand-mark {
+  width: 24px; height: 24px; border-radius: 6px; background: var(--primary);
+  display: grid; place-items: center; font-size: 11px; font-weight: 600; color: #fff; letter-spacing: 0;
+}
+.nav-links { display: flex; gap: 28px; font-size: 14px; color: var(--ink-subtle); }
+.nav-links a { position: relative; transition: color 150ms ease; }
+.nav-links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: var(--ink);
+  transform: scaleX(0); transform-origin: right; transition: transform 250ms var(--ease-out);
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a.active { color: var(--ink); }
+.nav-links a.active::after { transform: scaleX(1); transform-origin: left; }
+
+/* Buttons */
+.btn {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 500 14px/1.2 var(--font);
+  padding: 9px 14px; border-radius: 8px; border: 1px solid transparent;
+  cursor: pointer; min-height: 40px;
+  transition: background-color 150ms ease, border-color 150ms ease, transform 160ms var(--ease-out);
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--primary); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.18); }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-primary::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.35) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+.btn-secondary { background: var(--surface-1); color: var(--ink); border-color: var(--hairline); }
+.btn-secondary:hover { background: var(--surface-2); border-color: var(--hairline-strong); }
+.btn .arrow { transition: transform 200ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover::after { transform: translateX(120%); transition: transform 700ms var(--ease-out); }
+  .btn:hover .arrow { transform: translateX(3px); }
+}
+
+/* Type */
+.eyebrow { font-size: 13px; font-weight: 500; letter-spacing: 0.4px; color: var(--ink-subtle); display: inline-flex; align-items: center; gap: 10px; }
+.dot { position: relative; width: 6px; height: 6px; border-radius: 50%; background: var(--success); }
+.dot::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: var(--success); animation: ping 2.4s var(--ease-out) infinite; }
+@keyframes ping { 0% { transform: scale(1); opacity: .7; } 80%, 100% { transform: scale(3.2); opacity: 0; } }
+h1 { font-size: 72px; font-weight: 600; line-height: 1.05; letter-spacing: -2.8px; }
+h2 { font-size: 48px; font-weight: 600; line-height: 1.1; letter-spacing: -1.6px; }
+h3 { font-size: 20px; font-weight: 500; line-height: 1.25; letter-spacing: -0.4px; }
+.lead { font-size: 18px; color: var(--ink-subtle); letter-spacing: -0.1px; max-width: 600px; }
+.muted { color: var(--ink-subtle); }
+.grad {
+  background: linear-gradient(180deg, var(--ink) 30%, rgba(247,248,248,.55));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+section { padding: 96px 0; }
+.section-head { display: flex; flex-direction: column; gap: 14px; margin-bottom: 48px; max-width: 720px; }
+
+/* Hero */
+.hero { position: relative; padding: 104px 0 72px; overflow: hidden; }
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 45% at 50% 0%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 45% at 50% 0%, #000 20%, transparent 75%);
+}
+.hero::after {
+  content: ""; position: absolute; top: -280px; left: 50%; width: 900px; height: 520px; margin-left: -450px; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(94,106,210,.22), transparent 65%);
+  animation: fadeIn 2000ms ease-out 200ms both;
+}
+.hero h1 { margin: 22px 0 24px; max-width: 920px; }
+.w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .1em; margin-bottom: -.1em; }
+.w > span { display: inline-block; animation: wordUp 1000ms var(--ease-out) both; animation-delay: calc(150ms + var(--i) * 55ms); }
+.dim .w > span { color: var(--ink-subtle); }
+.intro { animation: fadeUp 1000ms var(--ease-out) both; animation-delay: calc(450ms + var(--i) * 90ms); }
+.hero-ctas { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 64px; border-top: 1px solid var(--hairline); }
+.stat { padding: 24px 24px 0 0; }
+.stat + .stat { padding-left: 24px; border-left: 1px solid var(--hairline); }
+.stat-num { font-size: 32px; font-weight: 600; letter-spacing: -1px; font-variant-numeric: tabular-nums; }
+.stat-label { font-size: 14px; color: var(--ink-subtle); }
+
+@keyframes wordUp { from { transform: translateY(105%); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } }
+@keyframes fadeIn { from { opacity: 0; } }
+@keyframes fadeOnly { from { opacity: 0; } }
+
+/* Product panel */
+.panel-wrap { position: relative; margin-top: 72px; perspective: 1400px; }
+.panel-wrap::before {
+  content: ""; position: absolute; left: 15%; right: 15%; top: -40px; height: 180px; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(94,106,210,.35), transparent 70%);
+  filter: blur(30px);
+  animation: fadeIn 1600ms ease-out 900ms both;
+}
+.panel {
+  position: relative; background: var(--surface-1); border: 1px solid var(--hairline);
+  border-radius: 16px; overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 40px 80px -20px rgba(0,0,0,.8);
+  transform-origin: 50% 0;
+  animation: panelIn 1600ms var(--ease-out) 700ms both;
+}
+.panel::after {
+  content: ""; position: absolute; top: 0; left: 0; width: 35%; height: 1px; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(130,143,255,.9), transparent);
+  animation: sweep 6s linear 2.4s infinite;
+  transform: translateX(-100%);
+}
+@keyframes panelIn { from { opacity: 0; transform: rotateX(22deg) translateY(60px) scale(.94); } }
+@keyframes sweep { from { transform: translateX(-100%); } to { transform: translateX(390%); } }
+.panel-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--hairline); }
+.panel-title { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; color: var(--ink-muted); }
+.panel-title .brand-mark { width: 18px; height: 18px; font-size: 9px; border-radius: 5px; }
+.panel-filters { display: flex; gap: 6px; }
+.chip { font-size: 12px; color: var(--ink-subtle); padding: 3px 10px; border-radius: 999px; border: 1px solid var(--hairline); }
+.chip.on { background: var(--surface-3); color: var(--ink); border-color: var(--hairline-strong); }
+.group-head { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--surface-2); font-size: 12px; font-weight: 500; color: var(--ink-muted); border-bottom: 1px solid var(--hairline); }
+.group-head .count { color: var(--ink-tertiary); }
+.ticket {
+  display: grid; grid-template-columns: 16px 64px 1fr auto auto; align-items: center; gap: 14px;
+  padding: 11px 16px; border-bottom: 1px solid var(--hairline); font-size: 14px;
+  animation: rowIn 700ms var(--ease-out) both; animation-delay: calc(1500ms + var(--i) * 90ms);
+  transition: background-color 150ms ease;
+}
+.ticket:last-child { border-bottom: 0; }
+.ticket:hover { background: var(--surface-2); }
+@keyframes rowIn { from { opacity: 0; transform: translateY(10px); } }
+.ticket-id { font-family: var(--mono); font-size: 12px; color: var(--ink-tertiary); }
+.ticket-title { color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ticket-tag { font-size: 12px; color: var(--ink-subtle); display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border: 1px solid var(--hairline); border-radius: 999px; }
+.ticket-tag i { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+.ticket-date { font-size: 12px; color: var(--ink-tertiary); width: 52px; text-align: right; }
+.status { width: 14px; height: 14px; border-radius: 50%; display: grid; place-items: center; background: var(--primary); }
+.status svg { width: 9px; height: 9px; }
+.ticket .status { animation: pop 500ms var(--ease-out) both; animation-delay: calc(1750ms + var(--i) * 90ms); }
+.ticket .status path { stroke-dasharray: 10; animation: draw 450ms var(--ease-out) both; animation-delay: calc(1900ms + var(--i) * 90ms); }
+@keyframes pop { from { transform: scale(.5); opacity: 0; } }
+@keyframes draw { from { stroke-dashoffset: 10; } }
+.new-badge { font-size: 11px; font-weight: 500; color: var(--primary-hover); margin-left: 8px; }
+
+/* Scroll reveal */
+.js [data-reveal] {
+  opacity: 0; transform: translateY(28px);
+  transition:
+    opacity 900ms var(--ease-out) calc(var(--d, 0) * 90ms),
+    transform 900ms var(--ease-out) calc(var(--d, 0) * 90ms),
+    background-color 150ms ease, border-color 150ms ease;
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+/* Cards */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.card {
+  position: relative;
+  background: var(--surface-1); border: 1px solid var(--hairline); border-radius: 12px; padding: 24px;
+  display: flex; flex-direction: column; gap: 14px;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+.card::before, .card::after {
+  content: ""; position: absolute; inset: -1px; border-radius: inherit; pointer-events: none;
+  opacity: 0; transition: opacity 300ms ease;
+}
+.card::before {
+  padding: 1px;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgba(130,143,255,.7), transparent 70%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+}
+.card::after { background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), rgba(94,106,210,.08), transparent 70%); }
+@media (hover: hover) and (pointer: fine) {
+  .card:hover { background: var(--surface-2); }
+  .card:hover::before, .card:hover::after { opacity: 1; }
+  .card:hover .card-icon { color: var(--ink); border-color: var(--hairline-strong); transform: translateY(-2px); }
+}
+.card-icon {
+  width: 32px; height: 32px; border-radius: 8px; background: var(--surface-3); border: 1px solid var(--hairline);
+  display: grid; place-items: center; color: var(--ink-muted);
+  transition: color 200ms ease, border-color 200ms ease, transform 300ms var(--ease-out);
+}
+.card-icon svg { width: 16px; height: 16px; }
+.card p { font-size: 14px; color: var(--ink-subtle); }
+.skill-list { display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--ink-muted); }
+.skill-list li { display: flex; gap: 10px; align-items: baseline; }
+.skill-list li::before { content: ""; flex: none; width: 4px; height: 4px; border-radius: 50%; background: var(--ink-tertiary); transform: translateY(-3px); }
+.badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; padding: 1px 7px; border-radius: 999px; background: rgba(94,106,210,.14); color: var(--primary-hover); white-space: nowrap; }
+.badge.soon { background: var(--surface-3); color: var(--ink-subtle); }
+
+/* Discoveries */
+.discover { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.discover .card { padding: 28px 24px; gap: 10px; }
+.discover .num { font-family: var(--mono); font-size: 12px; color: var(--primary-hover); }
+.big-num { font-size: 56px; font-weight: 600; letter-spacing: -2px; line-height: 1; margin: 8px 0 6px; }
+
+/* Journal */
+.tabs-wrap { position: relative; display: inline-block; max-width: 100%; margin-bottom: 24px; }
+.tabs { display: flex; gap: 4px; padding: 4px; border: 1px solid var(--hairline); border-radius: 999px; flex-wrap: wrap; }
+.tab { display: inline-flex; align-items: center; justify-content: center; gap: 4px; white-space: nowrap; font: 500 14px/1.2 var(--font); color: var(--ink-subtle); background: transparent; border: 0; padding: 8px 14px; border-radius: 999px; cursor: pointer; min-height: 36px; transition: color 150ms ease; }
+.tab:hover { color: var(--ink-muted); }
+.tab .r { font-weight: 400; opacity: .7; }
+.tabs-copy {
+  position: absolute; inset: 0; pointer-events: none; border-color: transparent;
+  clip-path: inset(4px 100% 4px 4px round 999px);
+  transition: clip-path 350ms var(--ease-in-out);
+}
+.tabs-copy .tab { background: var(--surface-3); color: var(--ink); }
+@media (max-width: 960px) { .tab .r { display: none; } }
+@media (max-width: 480px) {
+  .tabs-wrap { display: block; }
+  .tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-radius: 12px; }
+  .tab { padding: 8px 4px; font-size: 13px; border-radius: 8px; }
+}
+.journal { border-top: 1px solid var(--hairline); min-height: 200px; }
+.day { display: grid; grid-template-columns: 180px 1fr; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--hairline); animation: fadeUp 600ms var(--ease-out) both; animation-delay: calc(var(--i) * 60ms); }
+.day-date { font-size: 14px; color: var(--ink-muted); font-weight: 500; }
+.day ul { display: flex; flex-direction: column; gap: 8px; font-size: 15px; }
+.day li { display: flex; gap: 10px; align-items: baseline; color: var(--ink-muted); }
+.day li::before { content: ""; flex: none; width: 4px; height: 4px; border-radius: 50%; background: var(--ink-tertiary); transform: translateY(-3px); }
+.journal-note { margin-top: 16px; font-size: 13px; color: var(--ink-tertiary); }
+
+/* Projects */
+.project { padding: 0; gap: 0; }
+.project-visual {
+  height: 150px; background: var(--surface-2); border-bottom: 1px solid var(--hairline);
+  border-radius: 11px 11px 0 0; font-family: var(--mono); font-size: 12px; color: var(--ink-subtle);
+}
+.project-body { padding: 24px; display: flex; flex-direction: column; gap: 12px; }
+.steps { display: flex; flex-direction: column; gap: 6px; font-size: 13px; color: var(--ink-subtle); counter-reset: s; }
+.steps li { counter-increment: s; display: flex; gap: 10px; }
+.steps li::before { content: counter(s, decimal-leading-zero); font-family: var(--mono); color: var(--ink-tertiary); font-size: 12px; }
+.term { height: 100%; padding: 18px 20px; display: flex; flex-direction: column; justify-content: center; gap: 4px; line-height: 1.6; }
+.term-dots { display: flex; gap: 6px; margin-bottom: 8px; }
+.term-dots i { width: 8px; height: 8px; border-radius: 50%; background: var(--hairline-strong); }
+.term .tl { white-space: nowrap; width: fit-content; }
+.term .ok { color: var(--success); }
+.term .p { color: var(--primary-hover); }
+.caret { display: inline-block; width: 7px; height: 13px; background: var(--ink-muted); vertical-align: -2px; margin-left: 4px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.js .term .tl { clip-path: inset(0 100% 0 0); transition: clip-path 900ms steps(30, end); transition-delay: calc(500ms + var(--t) * 950ms); }
+.js .is-in .term .tl { clip-path: inset(0 0 0 0); }
+
+/* Timeline */
+.timeline { position: relative; display: flex; flex-direction: column; border: 1px solid var(--hairline); border-radius: 12px; background: var(--surface-1); }
+.tl-row { display: grid; grid-template-columns: 200px 1fr auto; gap: 24px; padding: 24px; align-items: start; }
+.tl-row + .tl-row { border-top: 1px solid var(--hairline); }
+.tl-when { font-family: var(--mono); font-size: 12px; color: var(--ink-tertiary); padding-top: 4px; }
+.tl-row p { font-size: 14px; color: var(--ink-subtle); margin-top: 4px; }
+
+/* CTA + footer */
+.cta {
+  position: relative; overflow: hidden;
+  background: var(--surface-1); border: 1px solid var(--hairline); border-radius: 12px; padding: 56px 48px;
+  display: flex; justify-content: space-between; align-items: center; gap: 32px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+.cta::before {
+  content: ""; position: absolute; right: -120px; top: -160px; width: 420px; height: 420px; pointer-events: none;
+  background: radial-gradient(circle, rgba(94,106,210,.18), transparent 65%);
+}
+.cta > * { position: relative; }
+.cta h2 { font-size: 36px; letter-spacing: -1px; }
+.cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size: 13px; color: var(--ink-subtle); }
+.foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.foot a { transition: color 150ms ease; }
+.foot a:hover { color: var(--ink); }
+.foot-links { display: flex; gap: 20px; }
+
+/* Responsive */
+@media (max-width: 1024px) {
+  h1 { font-size: 56px; letter-spacing: -1.8px; }
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .ticket { grid-template-columns: 16px 56px 1fr auto; }
+  .ticket-date { display: none; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .nav-links { display: none; }
+  section { padding: 64px 0; }
+  .hero { padding: 56px 0 48px; }
+  .hero::after { width: 600px; margin-left: -300px; }
+  h1 { font-size: 40px; letter-spacing: -1.2px; }
+  h2 { font-size: 32px; letter-spacing: -0.8px; }
+  .lead { font-size: 16px; }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .stat, .stat + .stat { padding: 20px 0 0; border-left: 0; }
+  .grid, .discover { grid-template-columns: 1fr; }
+  .panel-wrap { margin-top: 48px; }
+  .panel-filters { display: none; }
+  .ticket { grid-template-columns: 16px 1fr; gap: 10px; }
+  .ticket-id, .ticket-tag { display: none; }
+  .day { grid-template-columns: 1fr; gap: 10px; }
+  .tl-row { grid-template-columns: 1fr; gap: 8px; }
+  .cta { flex-direction: column; align-items: flex-start; padding: 32px 24px; }
+  .cta h2 { font-size: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .w > span, .intro, .panel, .ticket, .ticket .status, .day { animation-name: fadeOnly; }
+  .ticket .status path { animation: none; }
+  .panel::after, .dot::after, .caret, .progress { animation: none; }
+  .progress { display: none; }
+  .js [data-reveal] { transform: none; transition: opacity 400ms ease; }
+  .js .term .tl { clip-path: none; transition: none; }
+  .tabs-copy { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand"><span class="brand-mark" data-initials>PN</span><span data-name>Prénom Nom</span></a>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a href="#competences">Compétences</a>
+      <a href="#stage">Stage</a>
+      <a href="#projets">Projets</a>
+      <a href="#parcours">Parcours</a>
+    </nav>
+    <a href="#contact" class="btn btn-primary">Me contacter</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow intro" style="--i:0"><span class="dot"></span>Ouvert aux stages et alternances</span>
+      <h1>
+        <span class="w" style="--i:0"><span>Diagnostiquer,</span></span>
+        <span class="w" style="--i:1"><span>réparer,</span></span>
+        <span class="w" style="--i:2"><span>remettre</span></span>
+        <span class="w" style="--i:3"><span>en</span></span>
+        <span class="w" style="--i:4"><span>route.</span></span>
+        <span class="dim"><span class="w" style="--i:5"><span>Du</span></span>
+        <span class="w" style="--i:6"><span>PC</span></span>
+        <span class="w" style="--i:7"><span>au</span></span>
+        <span class="w" style="--i:8"><span>smartphone.</span></span></span>
+      </h1>
+      <p class="lead intro" style="--i:2">Ce portfolio rassemble mes compétences en maintenance et support informatique, construites en atelier, au contact des clients, en cours et sur mes projets perso.</p>
+      <div class="hero-ctas intro" style="--i:3">
+        <a href="#competences" class="btn btn-primary">Voir mes compétences <span class="arrow">→</span></a>
+        <a href="#stage" class="btn btn-secondary">Journal de stage</a>
+      </div>
+
+      <div class="stats intro" style="--i:4">
+        <div class="stat"><div class="stat-num" data-count="4">4</div><div class="stat-label">semaines de stage en atelier</div></div>
+        <div class="stat"><div class="stat-num" data-count="9">9</div><div class="stat-label">domaines de compétences</div></div>
+        <div class="stat"><div class="stat-num" data-count="3">3</div><div class="stat-label">projets réalisés en boutique</div></div>
+        <div class="stat"><div class="stat-num" data-count="100" data-suffix="%">100%</div><div class="stat-label">des jours au contact des clients</div></div>
+      </div>
+
+      <div class="panel-wrap">
+        <div class="panel" aria-label="Exemples d'interventions réalisées">
+          <div class="panel-bar">
+            <div class="panel-title"><span class="brand-mark" data-initials>PN</span>Atelier · Interventions</div>
+            <div class="panel-filters">
+              <span class="chip on">Toutes</span><span class="chip">Matériel</span><span class="chip">Systèmes</span><span class="chip">Mobile</span>
+            </div>
+          </div>
+          <div class="group-head">
+            <span class="status"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5.2l2 2 4-4.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            Terminé <span class="count">6</span>
+          </div>
+          <div id="tickets"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="competences">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Compétences</span>
+        <h2 class="grad">Ce que je sais faire</h2>
+        <p class="lead">Neuf domaines, du diagnostic matériel à la relation client. Les badges <span class="badge">Nouveau</span> marquent ce que j'ai appris pendant le stage.</p>
+      </div>
+      <div class="grid" id="skills" data-stagger></div>
+    </div>
+  </section>
+
+  <section style="padding-top: 0">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Ce que le stage m'a appris</span>
+        <h2 class="grad">Trois compétences nouvelles</h2>
+        <p class="lead">Le reste du stage m'a servi à pratiquer et perfectionner ce que je maîtrisais déjà. Ces trois-là, je les ai découvertes sur place.</p>
+      </div>
+      <div class="discover" data-stagger>
+        <div class="card"><span class="num">01</span><h3>Installation de macOS</h3><p>Réinstallation complète sur un Mac bloqué par une erreur au démarrage, puis configuration d'un Mac pour un client.</p></div>
+        <div class="card"><span class="num">02</span><h3>Messagerie &amp; SMTP</h3><p>Diagnostic et reconnexion d'une boîte mail à son serveur d'envoi SMTP.</p></div>
+        <div class="card"><span class="num">03</span><h3>Clé USB Ventoy</h3><p>Création d'une clé multi-boot avec mes outils, utilisée ensuite pour cloner un disque et débloquer un compte Windows.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="stage">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Stage · 9 mars → 3 avril 2026</span>
+        <h2 class="grad">Journal de stage</h2>
+        <p class="lead">Quatre semaines en boutique de réparation informatique : atelier, accueil, interventions chez les clients. Chaque journée commençait par la prise des appels clients.</p>
+      </div>
+      <div data-reveal>
+        <div class="tabs-wrap">
+          <div class="tabs" role="tablist" aria-label="Semaines de stage" id="tabs"></div>
+          <div class="tabs tabs-copy" aria-hidden="true" id="tabsCopy"></div>
+        </div>
+        <div class="journal" id="journal" role="tabpanel"></div>
+        <p class="journal-note">Réunion d'équipe chaque mardi matin avec l'entreprise.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projets">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Projets</span>
+        <h2 class="grad">Réalisations en boutique</h2>
+        <p class="lead">Au-delà des réparations, trois projets que j'ai menés de A à Z pendant le stage.</p>
+      </div>
+      <div class="grid" data-stagger>
+        <article class="card project">
+          <div class="project-visual">
+            <div class="term">
+              <div class="term-dots"><i></i><i></i><i></i></div>
+              <span class="tl" style="--t:0"><span class="p">$</span> nfc write --tag avis-accueil</span>
+              <span class="tl muted" style="--t:1">→ lien vers la page d'avis</span>
+              <span class="tl ok" style="--t:2">✓ pancarte installée<span class="caret"></span></span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3>Avis clients sans contact</h3>
+            <p>Une pancarte à l'accueil : le client approche son téléphone et laisse un avis en un geste.</p>
+            <ol class="steps">
+              <li>Conception de la pancarte</li>
+              <li>Commande et préparation des tags NFC</li>
+              <li>Installation à l'accueil</li>
+            </ol>
+          </div>
+        </article>
+        <article class="card project">
+          <div class="project-visual">
+            <div class="term">
+              <div class="term-dots"><i></i><i></i><i></i></div>
+              <span class="tl" style="--t:0"><span class="p">$</span> ventoy -i /dev/usb</span>
+              <span class="tl muted" style="--t:1">+ ISO &amp; utilitaires de dépannage</span>
+              <span class="tl ok" style="--t:2">✓ clonage disque · reset mdp<span class="caret"></span></span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3>Clé USB Ventoy multi-outils</h3>
+            <p>Une seule clé bootable qui regroupe les systèmes et logiciels de dépannage de l'atelier.</p>
+            <ol class="steps">
+              <li>Création de la clé Ventoy</li>
+              <li>Ajout des logiciels et images</li>
+              <li>Clonage d'un disque et déblocage d'un compte Windows</li>
+            </ol>
+          </div>
+        </article>
+        <article class="card project">
+          <div class="project-visual">
+            <div class="term">
+              <div class="term-dots"><i></i><i></i><i></i></div>
+              <span class="tl" style="--t:0"><span class="p">$</span> affiches --magasin</span>
+              <span class="tl muted" style="--t:1">signalétique · vente · avis</span>
+              <span class="tl ok" style="--t:2">✓ boutique réaménagée<span class="caret"></span></span>
+            </div>
+          </div>
+          <div class="project-body">
+            <h3>Signalétique du magasin</h3>
+            <p>Création des affiches et pancartes de la boutique et réflexion sur un nouvel agencement.</p>
+            <ol class="steps">
+              <li>Affiches de signalétique</li>
+              <li>Affiches de vente d'ordinateurs reconditionnés</li>
+              <li>Réaménagement du poste d'accueil</li>
+            </ol>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="parcours">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Parcours</span>
+        <h2 class="grad">D'où viennent ces compétences</h2>
+      </div>
+      <div class="timeline" data-reveal>
+        <div class="tl-row">
+          <span class="tl-when">MARS → AVRIL 2026</span>
+          <div><h3>Stage en boutique de réparation informatique</h3><p>Maintenance PC et Mac, téléphonie, imprimantes, reconditionnement, accueil et relation client.</p></div>
+          <span class="badge">4 semaines</span>
+        </div>
+        <div class="tl-row">
+          <span class="tl-when">FORMATION</span>
+          <div><h3>Ce que j'apprends en cours</h3><p>Section en cours de rédaction.</p></div>
+          <span class="badge soon">Bientôt</span>
+        </div>
+        <div class="tl-row">
+          <span class="tl-when">À LA MAISON</span>
+          <div><h3>Projets perso</h3><p>Section en cours de rédaction.</p></div>
+          <span class="badge soon">Bientôt</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" style="padding-top: 0">
+    <div class="container">
+      <div class="cta" data-reveal>
+        <div>
+          <h2>Un stage, une alternance, une panne ?</h2>
+          <p class="muted" style="margin-top:10px">Je réponds rapidement par mail.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary" data-email href="#">Envoyer un mail <span class="arrow">→</span></a>
+          <a class="btn btn-secondary" data-github href="#" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn btn-secondary" data-linkedin href="#" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container foot">
+    <span>© <span id="year"></span> <span data-name>Prénom Nom</span> · Portfolio hébergé sur GitHub Pages</span>
+    <div class="foot-links">
+      <a href="#competences">Compétences</a><a href="#stage">Stage</a><a href="#projets">Projets</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ✏️ Modifie ces infos avec les tiennes
+const PROFIL = {
+  nom: "Prénom Nom",
+  email: "ton.email@exemple.com",
+  github: "https://github.com/ton-pseudo",
+  linkedin: "https://www.linkedin.com/in/ton-profil",
+};
+
+const ICONS = {
+  cpu: '<path d="M5 5h6v6H5z"/><path d="M6.5 2v2M9.5 2v2M6.5 12v2M9.5 12v2M2 6.5h2M2 9.5h2M12 6.5h2M12 9.5h2"/><rect x="3.5" y="3.5" width="9" height="9" rx="1.5"/>',
+  os: '<rect x="2" y="3" width="12" height="8.5" rx="1.5"/><path d="M5.5 14h5M8 11.5V14"/>',
+  disk: '<ellipse cx="8" cy="4" rx="5.5" ry="2"/><path d="M2.5 4v8c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2V4M2.5 8c0 1.1 2.5 2 5.5 2s5.5-.9 5.5-2"/>',
+  print: '<path d="M4.5 6V2.5h7V6M4.5 11.5h-2v-5h11v5h-2"/><path d="M4.5 9.5h7v4h-7z"/>',
+  phone: '<rect x="4.5" y="1.5" width="7" height="13" rx="1.5"/><path d="M7 12.5h2"/>',
+  net: '<circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c1.8 1.7 2.6 3.7 2.6 6S9.8 12.3 8 14c-1.8-1.7-2.6-3.7-2.6-6S6.2 3.7 8 2z"/>',
+  deploy: '<rect x="1.5" y="3" width="6" height="5" rx="1"/><rect x="8.5" y="8" width="6" height="5" rx="1"/><path d="M7.5 5.5h2.5a1.5 1.5 0 011.5 1.5v1"/>',
+  recycle: '<path d="M13 8a5 5 0 01-8.6 3.5M3 8a5 5 0 018.6-3.5"/><path d="M11.5 1.8v2.7H8.8M4.5 14.2v-2.7h2.7"/>',
+  user: '<circle cx="8" cy="5.5" r="2.8"/><path d="M2.5 14c.6-2.6 2.8-4.2 5.5-4.2s4.9 1.6 5.5 4.2"/>',
+};
+const icon = n => `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
+
+const SKILLS = [
+  { i: "cpu", t: "Maintenance matériel", d: "Diagnostic, démontage et réparation de PC fixes, portables et tout-en-un.",
+    l: ["Diagnostic de pannes (PC qui ne démarre plus)", "Changement de carte graphique et de ventirad", "Remplacement de pâte thermique", "Réparation de dalle d'écran", "Nettoyage physique complet"] },
+  { i: "os", t: "Systèmes d'exploitation", d: "Installation, réparation et nettoyage de Windows et macOS.",
+    l: ["Réinstallation de Windows en gardant les données", ["Installation et configuration de macOS", 1], "Nettoyage logiciel et antivirus", "Réinitialisation complète d'un PC", "Déblocage de mot de passe Windows local"] },
+  { i: "disk", t: "Stockage & données", d: "Sauvegarder, récupérer et déplacer les données sans rien perdre.",
+    l: ["Clonage de disques et SSD", "Récupération de données sur disque démonté", "Transfert vers un nouveau poste", "Test et diagnostic de disques / SSD", "Ajout d'un second disque"] },
+  { i: "print", t: "Imprimantes & périphériques", d: "Des pages blanches à l'impression en rose : diagnostic et remise en état.",
+    l: ["Diagnostic des défauts d'impression", "Nettoyage des têtes d'impression", "Changement de cartouches", "Reconfiguration de plusieurs imprimantes", "Configuration d'un scanner"] },
+  { i: "phone", t: "Téléphonie mobile", d: "Réparation de smartphones, du diagnostic à la commande de pièces.",
+    l: ["Changement de batterie iPhone 12 et 14", "Remplacement d'écran", "Diagnostic d'un téléphone qui ne démarre plus", "Commande de pièces détachées"] },
+  { i: "net", t: "Réseau & messagerie", d: "Remettre une machine en ligne et rétablir l'envoi des mails.",
+    l: ["Dépannage de carte réseau", ["Configuration SMTP d'une boîte mail", 1], "Diagnostic de pavé numérique sur poste neuf"] },
+  { i: "deploy", t: "Déploiement de postes", d: "Préparer un poste prêt à l'emploi pour un particulier ou une entreprise.",
+    l: ["Préparation de nouveaux postes", "Migration des fichiers utilisateur", "Réaménagement d'un poste d'accueil", "Livraison en entreprise avec XEFI", ["Clé USB Ventoy multi-outils", 1]] },
+  { i: "recycle", t: "Reconditionnement", d: "Donner une seconde vie aux ordinateurs et les remettre en vente.",
+    l: ["Estimation du coût de réparation", "Estimation du prix de revente", "Remise à zéro et nettoyage", "Préparation à la vente et affiche produit"] },
+  { i: "user", t: "Relation client & communication", d: "Accueil, téléphone, interventions sur site et supports visuels.",
+    l: ["Prise des appels clients au quotidien", "Intervention chez un client", "Suivi et rappel des clients", "Création d'affiches et pancartes", ["Système d'avis client par NFC", 1]] },
+];
+
+const TICKETS = [
+  ["ATL-102", "Réinstallation de macOS — erreur au démarrage", "Systèmes", "#5e6ad2", "10 mars", true],
+  ["ATL-118", "Changement de carte graphique sur PC gamer", "Matériel", "#f2994a", "10 mars", false],
+  ["ATL-131", "Reconnexion d'une boîte mail au serveur SMTP", "Réseau", "#27a644", "19 mars", true],
+  ["ATL-147", "Imprimante qui imprime en rose", "Imprimantes", "#f2c94c", "25 mars", false],
+  ["ATL-156", "Changement de batterie iPhone 14", "Mobile", "#8a8f98", "27 mars", false],
+  ["ATL-163", "Création d'une clé USB Ventoy et clonage d'un disque", "Outils", "#5e6ad2", "1 avr.", true],
+];
+
+const WEEKS = [
+  { label: "Semaine 1", range: "9 → 13 mars", days: [
+    ["Lundi", "9 mars", ["Remplacement d'un ventirad", "Diagnostic de la batterie d'un Mac", "Démontage d'un PC portable et vérification d'un emplacement pour un disque", "Diagnostic de deux imprimantes (pages blanches, impression défectueuse) et nettoyage des têtes", "Réparation d'un PC qui ne démarrait plus", "Réinstallation complète de Windows en conservant les données"]],
+    ["Mardi", "10 mars", ["Changement d'une carte graphique sur un PC gamer", "Réflexion sur un nouvel agencement de la boutique", "Démontage et test d'un disque dur", ["Réinstallation de macOS sur un Mac en erreur au démarrage", 1], "Changement des cartouches et nettoyage des têtes d'une imprimante", "Nettoyage physique complet d'un PC portable"]],
+    ["Mercredi", "11 mars", ["Nettoyage logiciel d'un PC portable", "Récupération des données d'un disque dur et transfert vers un nouveau disque", "Intervention chez un client", "Réparation d'une imprimante et d'un ordinateur", "Création d'affiches pour le magasin"]],
+    ["Jeudi", "12 mars", ["Finalisation de la signalétique du magasin", "Préparation d'un nouveau poste client et transfert des données", "Diagnostic et réparation d'un PC qui ne démarrait plus", "Changement du disque d'un PC", "Nettoyage d'une tête d'impression"]],
+    ["Vendredi", "13 mars", ["Remontage d'un PC", "Diagnostic et résolution d'un problème de pavé numérique sur un ordinateur neuf", "Suppression d'un mot de passe Windows à l'aide d'un logiciel"]],
+  ]},
+  { label: "Semaine 2", range: "16 → 20 mars", days: [
+    ["Lundi", "16 mars", ["Estimation du coût de réparation d'un ordinateur", "Estimation du prix de revente d'un ordinateur", "Préparation d'un ordinateur pour le reconditionnement", "Diagnostic d'un Mac affichant une erreur au démarrage"]],
+    ["Mardi", "17 mars", ["Remontage d'un vieux PC pour en faire un outil d'atelier", "Résolution d'un problème de carte réseau sur un PC portable", "Remontage et test d'un ordinateur tout-en-un"]],
+    ["Mercredi", "18 mars", ["Diagnostic d'un téléphone qui ne démarrait plus et commande d'une batterie", "Démontage du SSD d'un tout-en-un et clonage vers un nouveau PC", "Remise à zéro d'un PC portable et préparation à la vente en reconditionné", "Création d'une pancarte pour les avis clients et commande de tags NFC"]],
+    ["Jeudi", "19 mars", ["Nettoyage d'un ordinateur et installation d'un antivirus", ["Reconnexion d'une boîte mail au serveur SMTP", 1], "Préparation d'un nouveau poste et transfert des données", "Changement de batterie d'un iPhone 12", "Changement de pâte thermique d'un PC portable", "Création d'une affiche de vente pour un ordinateur", "Appel d'une cliente pour l'informer que son ordinateur était prêt"]],
+    ["Vendredi", "20 mars", ["Préparation des tags NFC", "Mise en place du système d'avis sans contact", "Installation de la pancarte à l'accueil"]],
+  ]},
+  { label: "Semaine 3", range: "23 → 27 mars", days: [
+    ["Lundi", "23 mars", ["Transfert de données", "Diagnostic d'un ordinateur qui ne fonctionnait plus"]],
+    ["Mercredi", "25 mars", ["Réception de colis", "Résolution d'un problème d'imprimante qui imprimait en rose", "Nettoyage physique et logiciel d'un PC", "Préparation d'un nouvel ordinateur et transfert des données"]],
+    ["Jeudi", "26 mars", ["Résolution d'un problème d'imprimante qui n'imprimait plus", "Clonage d'un disque", "Remplacement du PC de l'accueil et réaménagement du poste", "Transfert de fichiers vers le nouveau PC"]],
+    ["Vendredi", "27 mars", ["Diagnostic d'un SSD", "Tri des câbles de l'atelier", "Changement de batterie d'un iPhone 14"]],
+  ]},
+  { label: "Semaine 4", range: "30 mars → 3 avril", days: [
+    ["Lundi", "30 mars", ["Préparation de deux postes informatiques (avec et sans transfert de fichiers)", "Configuration d'un scanner"]],
+    ["Mardi", "31 mars", ["Livraison d'un ordinateur pour une entreprise avec XEFI", "Réparation de la dalle d'un ordinateur portable", "Changement de l'écran d'un téléphone"]],
+    ["Mercredi", "1er avril", [["Création d'une clé USB Ventoy", 1], "Ajout des logiciels de dépannage sur la clé", "Clonage d'un disque avec la clé Ventoy"]],
+    ["Jeudi", "2 avril", ["Reconfiguration de plusieurs imprimantes", "Configuration d'un Mac", "Suppression d'un mot de passe Windows avec la clé USB"]],
+    ["Vendredi", "3 avril", ["Préparation d'un poste informatique et transfert des données"]],
+  ]},
+];
+
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const item = x => Array.isArray(x)
+  ? `<li><span>${esc(x[0])} <span class="badge">Nouveau</span></span></li>`
+  : `<li><span>${esc(x)}</span></li>`;
+
+document.getElementById("skills").innerHTML = SKILLS.map(s => `
+  <article class="card">
+    <div class="card-icon">${icon(s.i)}</div>
+    <h3>${s.t}</h3>
+    <p>${s.d}</p>
+    <ul class="skill-list">${s.l.map(item).join("")}</ul>
+  </article>`).join("");
+
+const check = '<span class="status"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5.2l2 2 4-4.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+document.getElementById("tickets").innerHTML = TICKETS.map(([id, title, tag, color, date, isNew], i) => `
+  <div class="ticket" style="--i:${i}">
+    ${check}
+    <span class="ticket-id">${id}</span>
+    <span class="ticket-title">${esc(title)}${isNew ? '<span class="new-badge">Nouveau</span>' : ""}</span>
+    <span class="ticket-tag"><i style="background:${color}"></i>${tag}</span>
+    <span class="ticket-date">${date}</span>
+  </div>`).join("");
+
+// Journal tabs: the active pill is a clipped copy of the tab list
+const tabs = document.getElementById("tabs");
+const tabsCopy = document.getElementById("tabsCopy");
+const journal = document.getElementById("journal");
+const tabHtml = WEEKS.map((w, i) => `<button class="tab" role="tab" data-w="${i}">${w.label} <span class="r">· ${w.range}</span></button>`).join("");
+tabs.innerHTML = tabHtml;
+tabsCopy.innerHTML = tabHtml.replaceAll(' role="tab"', "").replaceAll("<button", "<span").replaceAll("</button>", "</span>");
+let current = 0;
+function placeIndicator() {
+  const b = tabs.children[current];
+  const wrap = tabs.parentElement;
+  const top = b.offsetTop, left = b.offsetLeft;
+  const right = wrap.clientWidth - left - b.offsetWidth;
+  const bottom = wrap.clientHeight - top - b.offsetHeight;
+  const radius = getComputedStyle(b).borderTopLeftRadius;
+  tabsCopy.style.clipPath = `inset(${top}px ${right}px ${bottom}px ${left}px round ${radius})`;
+}
+function showWeek(w) {
+  current = w;
+  [...tabs.children].forEach((b, i) => {
+    b.setAttribute("aria-selected", i === w);
+    b.tabIndex = i === w ? 0 : -1;
+  });
+  placeIndicator();
+  journal.innerHTML = WEEKS[w].days.map(([d, date, acts], i) => `
+    <div class="day" style="--i:${i}">
+      <div class="day-date">${d} ${date}</div>
+      <ul>${acts.map(item).join("")}</ul>
+    </div>`).join("");
+}
+tabs.addEventListener("click", e => { const b = e.target.closest(".tab"); if (b && +b.dataset.w !== current) showWeek(+b.dataset.w); });
+tabs.addEventListener("keydown", e => {
+  const dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+  if (!dir) return;
+  const n = (current + dir + WEEKS.length) % WEEKS.length;
+  showWeek(n); tabs.children[n].focus();
+});
+addEventListener("resize", placeIndicator);
+document.fonts?.ready.then(placeIndicator);
+showWeek(0);
+
+// Profile
+const initials = PROFIL.nom.split(/\s+/).map(p => p[0]).join("").slice(0, 2).toUpperCase();
+document.querySelectorAll("[data-name]").forEach(el => el.textContent = PROFIL.nom);
+document.querySelectorAll("[data-initials]").forEach(el => el.textContent = initials);
+document.querySelector("[data-email]").href = "mailto:" + PROFIL.email;
+document.querySelector("[data-github]").href = PROFIL.github;
+document.querySelector("[data-linkedin]").href = PROFIL.linkedin;
+document.getElementById("year").textContent = new Date().getFullYear();
+
+// Scroll reveal, staggered per row
+document.querySelectorAll("[data-stagger]").forEach(p =>
+  [...p.children].forEach((c, i) => { c.setAttribute("data-reveal", ""); c.style.setProperty("--d", i % 3); }));
+const revealIO = new IntersectionObserver(entries => entries.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add("is-in");
+  revealIO.unobserve(e.target);
+}), { rootMargin: "0px 0px -8% 0px", threshold: 0.12 });
+document.querySelectorAll("[data-reveal]").forEach(el => revealIO.observe(el));
+
+// Stat counters
+function countUp(el) {
+  const end = +el.dataset.count, suffix = el.dataset.suffix || "";
+  if (reduceMotion) return;
+  const dur = 1400, start = performance.now();
+  const tick = now => {
+    const t = Math.min((now - start) / dur, 1);
+    el.textContent = Math.round(end * (1 - Math.pow(1 - t, 4))) + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  el.textContent = "0" + suffix;
+  setTimeout(() => requestAnimationFrame(tick), 700);
+}
+document.querySelectorAll("[data-count]").forEach(countUp);
+
+// Card spotlight follows the cursor
+if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
+  document.addEventListener("pointermove", e => {
+    const card = e.target.closest(".card");
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    card.style.setProperty("--my", `${e.clientY - r.top}px`);
+  }, { passive: true });
+}
+
+// Nav: border on scroll + active section link
+const nav = document.getElementById("nav");
+const onScroll = () => nav.classList.toggle("scrolled", scrollY > 8);
+addEventListener("scroll", onScroll, { passive: true });
+onScroll();
+const links = [...document.querySelectorAll(".nav-links a")];
+const navIO = new IntersectionObserver(entries => entries.forEach(e => {
+  if (!e.isIntersecting) return;
+  links.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+}), { rootMargin: "-45% 0px -50% 0px" });
+links.forEach(a => navIO.observe(document.querySelector(a.getAttribute("href"))));
+</script>
+</body>
+</html>
