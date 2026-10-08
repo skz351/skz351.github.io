@@ -714,24 +714,24 @@ const ICONS = {
 const icon = n => `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
 
 const SKILLS = [
-  { i: "cpu", t: "Montage & maintenance matériel", d: "Montage, diagnostic et réparation de PC fixes, portables et tout-en-un.",
-    l: ["Montage et préparation de PC", "Installation de composants (disques, processeurs, cartes graphiques)", "Diagnostic et réparation de pannes matérielles", "Changement de ventirad et de pâte thermique", "Réparation de dalle d'écran et nettoyage complet"] },
-  { i: "os", t: "Systèmes d'exploitation", d: "Installation, réparation et nettoyage de Windows et macOS.",
-    l: ["Réinstallation de Windows en gardant les données", ["Installation et configuration de macOS", 1], "Nettoyage logiciel et antivirus", "Réinitialisation complète d'un PC", "Déblocage de mot de passe Windows local"] },
+  { i: "cpu", t: "Montage & maintenance matériel", d: "Montage, diagnostic et réparation de tous types d'ordinateurs : fixes, portables, tout-en-un et Mac.",
+    l: ["Montage et préparation de PC", "Diagnostic et réparation de pannes matérielles", "Remplacement de composants : disques, mémoire, processeurs, cartes graphiques", "Refroidissement : ventilateurs, ventirads, pâte thermique", "Remplacement d'écrans de PC portables", "Nettoyage et entretien complet"] },
+  { i: "os", t: "Systèmes d'exploitation", d: "Installation, dépannage et optimisation de Windows et macOS.",
+    l: ["Installation et réinstallation de Windows", ["Installation et configuration de macOS", 1], "Réparation des erreurs de démarrage", "Réinstallation en conservant les données", "Nettoyage, optimisation, antivirus et suppression de virus", "Déblocage de mots de passe locaux"] },
   { i: "disk", t: "Stockage & données", d: "Sauvegarder, récupérer et déplacer les données sans rien perdre.",
-    l: ["Clonage de disques et SSD", "Formatage et réparation de disques", "Récupération de données sur disque démonté", "Transfert de données avec un IODD", "Test et diagnostic de disques / SSD"] },
-  { i: "print", t: "Imprimantes & périphériques", d: "Des pages blanches à l'impression en rose : diagnostic et remise en état.",
-    l: ["Diagnostic des défauts d'impression", "Nettoyage des têtes d'impression", "Changement de cartouches", "Reconfiguration de plusieurs imprimantes", "Configuration d'un scanner"] },
-  { i: "phone", t: "Téléphonie mobile", d: "Réparation de smartphones, du diagnostic à la commande de pièces.",
-    l: ["Changement de batterie iPhone 12 et 14", "Remplacement d'écran", "Diagnostic d'un téléphone qui ne démarre plus", "Commande de pièces détachées"] },
+    l: ["Clonage de disques durs et SSD", "Récupération et transfert de données, notamment avec un IODD", "Formatage et réparation de disques", "Diagnostic de l'état des disques et SSD", ["Clé USB Ventoy multi-outils de dépannage", 1]] },
+  { i: "print", t: "Imprimantes & périphériques", d: "Diagnostic, entretien et configuration d'imprimantes, de scanners et de périphériques.",
+    l: ["Diagnostic et réparation d'imprimantes", "Entretien : têtes d'impression, cartouches", "Installation et configuration d'imprimantes et de scanners", "Dépannage de claviers et périphériques"] },
+  { i: "phone", t: "Téléphonie mobile", d: "Réparation de smartphones toutes marques, du diagnostic à la pièce.",
+    l: ["Remplacement de batteries", "Remplacement d'écrans", "Diagnostic de téléphones qui ne s'allument plus", "Commande de pièces détachées"] },
   { i: "net", t: "Réseau & messagerie", d: "Remettre une machine en ligne et rétablir l'envoi des mails.",
-    l: ["Dépannage de carte réseau", ["Configuration SMTP d'une boîte mail", 1], "Diagnostic de pavé numérique sur poste neuf"] },
+    l: ["Dépannage de connexion et de cartes réseau", ["Configuration de messageries (SMTP)", 1], "Remise en service de postes en réseau"] },
   { i: "deploy", t: "Déploiement de postes", d: "Préparer un poste prêt à l'emploi pour un particulier ou une entreprise.",
-    l: ["Installation et configuration de postes informatiques", "Migration des fichiers utilisateur", "Réaménagement d'un poste d'accueil", "Livraison en entreprise avec XEFI", ["Clé USB Ventoy multi-outils", 1]] },
+    l: ["Installation et configuration de postes neufs, PC et Mac", "Migration des données et des logiciels", "Mise en place de postes en entreprise", "Aménagement de postes de travail"] },
   { i: "recycle", t: "Gestion & reconditionnement", d: "Faire tourner l'atelier et donner une seconde vie aux ordinateurs.",
-    l: ["Gestion des stocks, commandes et factures", "Estimation du coût de réparation et du prix de revente", "Remise à zéro et préparation à la vente", "Réception de colis et organisation de l'atelier"] },
+    l: ["Gestion des stocks, commandes et factures", "Estimation des réparations et du prix de revente", "Reconditionnement : remise à zéro, nettoyage, mise en vente", "Réception du matériel et organisation de l'atelier"] },
   { i: "user", t: "Relation client & communication", d: "Accueil, conseil, vente et supports visuels.",
-    l: ["Accueil, conseil et vente en magasin", "Prise des appels clients au quotidien", "Intervention chez un client", "Identité visuelle et affiches pour l'entreprise", "Communication digitale du FC Guéret"] },
+    l: ["Accueil, conseil et vente en magasin", "Gestion des appels et suivi des clients", "Interventions chez les clients", "Identité visuelle, affiches et signalétique", "Communication digitale (FC Guéret)"] },
 ];
 
 const TICKETS = [
@@ -739,7 +739,7 @@ const TICKETS = [
   ["ATL-118", "Changement de carte graphique sur PC gamer", "Matériel", "#f2994a", "10 mars", false],
   ["ATL-131", "Reconnexion d'une boîte mail au serveur SMTP", "Réseau", "#27a644", "19 mars", true],
   ["ATL-147", "Imprimante qui imprime en rose", "Imprimantes", "#f2c94c", "25 mars", false],
-  ["ATL-156", "Changement de batterie iPhone 14", "Mobile", "#8a8f98", "27 mars", false],
+  ["ATL-156", "Remplacement de batterie sur smartphone", "Mobile", "#8a8f98", "27 mars", false],
   ["ATL-163", "Création d'une clé USB Ventoy et clonage d'un disque", "Outils", "#5e6ad2", "1 avr.", true],
 ];
 
@@ -886,34 +886,47 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
   }, { passive: true });
 }
 
-// Background network: drifting dots, linked when close, pushed aside by the cursor
+// Background network: two parallax layers of drifting dots, linked when close, pushed aside by the cursor
 (() => {
   const canvas = document.getElementById("network");
   const ctx = canvas.getContext("2d");
-  const LINK = 140, REACH = 190;
+  const REACH = 190;
+  const LAYERS = [
+    { depth: 0.18, link: 120, size: [0.6, 1.1], dot: "rgba(208, 214, 224, 0.28)", line: 0.12 },
+    { depth: 0.45, link: 150, size: [1.0, 2.0], dot: "rgba(208, 214, 224, 0.55)", line: 0.24 },
+  ];
   const pointer = { x: -1e4, y: -1e4, tx: -1e4, ty: -1e4 };
-  let w = 0, h = 0, dots = [];
+  let w = 0, h = 0, scroll = scrollY, layers = [];
+
+  const wrapY = v => { const H = h + 40; return ((v + 20) % H + H) % H - 20; };
 
   function setup() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     w = innerWidth; h = innerHeight;
     canvas.width = w * dpr; canvas.height = h * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const count = Math.max(28, Math.min(120, Math.round(w * h / 12000)));
-    dots = Array.from({ length: count }, () => {
-      const a = Math.random() * Math.PI * 2, speed = 0.12 + Math.random() * 0.22;
-      const bx = Math.cos(a) * speed, by = Math.sin(a) * speed;
-      return { x: Math.random() * w, y: Math.random() * h, vx: bx, vy: by, bx, by, r: 0.8 + Math.random() * 1.2 };
-    });
+    const total = Math.max(32, Math.min(130, Math.round(w * h / 11000)));
+    layers = LAYERS.map((L, li) => ({
+      ...L,
+      dots: Array.from({ length: Math.round(total * (li ? 0.45 : 0.55)) }, () => {
+        const a = Math.random() * Math.PI * 2, speed = (0.08 + Math.random() * 0.18) * (0.6 + L.depth);
+        const bx = Math.cos(a) * speed, by = Math.sin(a) * speed;
+        return { x: Math.random() * w, y: Math.random() * h, sx: 0, sy: 0, vx: bx, vy: by, bx, by,
+                 r: L.size[0] + Math.random() * (L.size[1] - L.size[0]) };
+      }),
+    }));
   }
 
   function step() {
     pointer.x += (pointer.tx - pointer.x) * 0.18;
     pointer.y += (pointer.ty - pointer.y) * 0.18;
-    for (const d of dots) {
-      const dx = d.x - pointer.x, dy = d.y - pointer.y, dist = Math.hypot(dx, dy);
+    scroll += (scrollY - scroll) * 0.12;
+    for (const L of layers) for (const d of L.dots) {
+      d.sx = d.x;
+      d.sy = wrapY(d.y - scroll * L.depth);
+      const dx = d.sx - pointer.x, dy = d.sy - pointer.y, dist = Math.hypot(dx, dy);
       if (dist < REACH && dist > 0.1) {
-        const push = (1 - dist / REACH) * 0.35;
+        const push = (1 - dist / REACH) * 0.35 * (0.5 + L.depth);
         d.vx += (dx / dist) * push;
         d.vy += (dy / dist) * push;
       }
@@ -921,45 +934,53 @@ if (matchMedia("(hover: hover) and (pointer: fine)").matches) {
       d.vy += (d.by - d.vy) * 0.03;
       d.x += d.vx; d.y += d.vy;
       if (d.x < -20) d.x = w + 20; else if (d.x > w + 20) d.x = -20;
-      if (d.y < -20) d.y = h + 20; else if (d.y > h + 20) d.y = -20;
+      d.y = wrapY(d.y);
     }
   }
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
     ctx.lineWidth = 1;
-    for (let i = 0; i < dots.length; i++) {
-      const a = dots[i];
-      for (let j = i + 1; j < dots.length; j++) {
-        const b = dots[j], dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
-        if (d2 > LINK * LINK) continue;
-        ctx.strokeStyle = `rgba(150, 158, 180, ${(1 - Math.sqrt(d2) / LINK) * 0.22})`;
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    for (const L of layers) {
+      const dots = L.dots;
+      for (let i = 0; i < dots.length; i++) {
+        const a = dots[i];
+        for (let j = i + 1; j < dots.length; j++) {
+          const b = dots[j], dx = a.sx - b.sx, dy = a.sy - b.sy, d2 = dx * dx + dy * dy;
+          if (d2 > L.link * L.link) continue;
+          ctx.strokeStyle = `rgba(150, 158, 180, ${(1 - Math.sqrt(d2) / L.link) * L.line})`;
+          ctx.beginPath(); ctx.moveTo(a.sx, a.sy); ctx.lineTo(b.sx, b.sy); ctx.stroke();
+        }
+        const pd = Math.hypot(a.sx - pointer.x, a.sy - pointer.y);
+        if (pd < REACH + 40) {
+          const k = Math.max(0, 1 - pd / (REACH + 40)) * (0.4 + L.depth);
+          ctx.strokeStyle = `rgba(130, 143, 255, ${k * 0.6})`;
+          ctx.beginPath(); ctx.moveTo(a.sx, a.sy); ctx.lineTo(pointer.x, pointer.y); ctx.stroke();
+          ctx.fillStyle = `rgba(160, 170, 255, ${0.35 + k * 0.6})`;
+        } else {
+          ctx.fillStyle = L.dot;
+        }
+        ctx.beginPath(); ctx.arc(a.sx, a.sy, a.r, 0, Math.PI * 2); ctx.fill();
       }
-      const pd = Math.hypot(a.x - pointer.x, a.y - pointer.y);
-      if (pd < REACH + 40) {
-        const k = Math.max(0, 1 - pd / (REACH + 40));
-        ctx.strokeStyle = `rgba(130, 143, 255, ${k * 0.55})`;
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(pointer.x, pointer.y); ctx.stroke();
-        ctx.fillStyle = `rgba(160, 170, 255, ${0.45 + k * 0.5})`;
-      } else {
-        ctx.fillStyle = "rgba(208, 214, 224, 0.45)";
-      }
-      ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2); ctx.fill();
     }
   }
 
   function loop() { step(); draw(); requestAnimationFrame(loop); }
 
   setup();
-  addEventListener("resize", () => { setup(); if (reduceMotion) draw(); });
-  if (reduceMotion) { draw(); return; }
+  if (reduceMotion) {
+    step(); draw();
+    addEventListener("resize", () => { setup(); step(); draw(); });
+    return;
+  }
+  addEventListener("resize", setup);
   addEventListener("pointermove", e => {
     if (pointer.tx < -1e3) { pointer.x = e.clientX; pointer.y = e.clientY; }
     pointer.tx = e.clientX; pointer.ty = e.clientY;
   }, { passive: true });
-  document.documentElement.addEventListener("pointerleave", () => { pointer.tx = pointer.ty = pointer.x = pointer.y = -1e4; });
-  addEventListener("blur", () => { pointer.tx = pointer.ty = pointer.x = pointer.y = -1e4; });
+  const clearPointer = () => { pointer.tx = pointer.ty = pointer.x = pointer.y = -1e4; };
+  document.documentElement.addEventListener("pointerleave", clearPointer);
+  addEventListener("blur", clearPointer);
   requestAnimationFrame(loop);
 })();
 
