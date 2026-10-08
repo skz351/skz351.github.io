@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Portfolio — Maintenance informatique</title>
-<meta name="description" content="Portfolio : maintenance informatique, systèmes, données, imprimantes, mobiles et relation client.">
+<title>Swan Marquentin — Portfolio</title>
+<meta name="description" content="Portfolio de Swan Marquentin, élève en Terminale CIEL : maintenance informatique, systèmes, réseaux, et objectif cybersécurité.">
 <script>document.documentElement.classList.add("js")</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -314,10 +314,54 @@ section { padding: 96px 0; }
 
 /* Timeline */
 .timeline { position: relative; display: flex; flex-direction: column; border: 1px solid var(--hairline); border-radius: 12px; background: var(--surface-1); }
-.tl-row { display: grid; grid-template-columns: 200px 1fr auto; gap: 24px; padding: 24px; align-items: start; }
+.parcours { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.col-title { display: block; font-size: 13px; font-weight: 500; letter-spacing: 0.4px; color: var(--ink-subtle); margin-bottom: 12px; }
+.timeline h3 { font-size: 17px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.tl-row { display: grid; grid-template-columns: 110px 1fr; gap: 20px; padding: 20px 24px; align-items: start; }
 .tl-row + .tl-row { border-top: 1px solid var(--hairline); }
 .tl-when { font-family: var(--mono); font-size: 12px; color: var(--ink-tertiary); padding-top: 4px; }
 .tl-row p { font-size: 14px; color: var(--ink-subtle); margin-top: 4px; }
+
+/* Roadmap */
+.road { position: relative; }
+.road-track {
+  position: absolute; left: 0; right: 0; top: 7px; height: 1px; background: var(--hairline-strong);
+  -webkit-mask-image: linear-gradient(90deg, #000 80%, transparent);
+  mask-image: linear-gradient(90deg, #000 80%, transparent);
+}
+.road-fill {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, var(--primary-hover), var(--primary) 40%, rgba(94,106,210,.35));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 2000ms var(--ease-in-out) 300ms;
+}
+.is-in .road-fill { transform: scaleX(1); }
+.road-steps { position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+.road-step { position: relative; padding-top: 36px; display: flex; flex-direction: column; gap: 6px; }
+.road-dot {
+  position: absolute; top: 0; left: 0; width: 15px; height: 15px; border-radius: 50%;
+  background: var(--canvas); border: 1px solid var(--hairline-strong);
+  transition: border-color 400ms ease, background-color 400ms ease;
+  transition-delay: calc(400ms + var(--s) * 380ms);
+}
+.is-in .road-dot { border-color: var(--primary-hover); }
+.road-step.now .road-dot { background: var(--primary); }
+.road-step.now .road-dot::after {
+  content: ""; position: absolute; inset: -1px; border-radius: 50%; background: var(--primary);
+  animation: ping 2.4s var(--ease-out) infinite;
+}
+.road-when { font-family: var(--mono); font-size: 12px; color: var(--ink-tertiary); }
+.road-step h3 { font-size: 18px; }
+.road-step p { font-size: 14px; color: var(--ink-subtle); }
+.js .road-step > :not(.road-dot) {
+  opacity: 0; transform: translateY(10px);
+  transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out);
+  transition-delay: calc(450ms + var(--s) * 380ms);
+}
+.js .is-in .road-step > :not(.road-dot) { opacity: 1; transform: none; }
+.interests { margin-top: 56px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips .chip { font-size: 14px; padding: 6px 14px; color: var(--ink-muted); background: var(--surface-1); }
 
 /* CTA + footer */
 .cta {
@@ -363,7 +407,13 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   .ticket { grid-template-columns: 16px 1fr; gap: 10px; }
   .ticket-id, .ticket-tag { display: none; }
   .day { grid-template-columns: 1fr; gap: 10px; }
-  .tl-row { grid-template-columns: 1fr; gap: 8px; }
+  .tl-row { grid-template-columns: 1fr; gap: 6px; }
+  .parcours { grid-template-columns: 1fr; gap: 32px; }
+  .road-track { left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent); mask-image: linear-gradient(180deg, #000 80%, transparent); }
+  .road-fill { transform: scaleY(0); transform-origin: top; }
+  .is-in .road-fill { transform: scaleY(1); }
+  .road-steps { grid-template-columns: 1fr; gap: 28px; }
+  .road-step { padding: 0 0 0 36px; }
   .cta { flex-direction: column; align-items: flex-start; padding: 32px 24px; }
   .cta h2 { font-size: 28px; }
 }
@@ -377,6 +427,9 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   .js [data-reveal] { transform: none; transition: opacity 400ms ease; }
   .js .term .tl { clip-path: none; transition: none; }
   .tabs-copy { transition: none; }
+  .road-fill { transition: none; }
+  .road-step.now .road-dot::after { animation: none; }
+  .js .road-step > :not(.road-dot) { transform: none; }
 }
 </style>
 </head>
@@ -392,6 +445,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
       <a href="#stage">Stage</a>
       <a href="#projets">Projets</a>
       <a href="#parcours">Parcours</a>
+      <a href="#objectif">Objectif</a>
     </nav>
     <a href="#contact" class="btn btn-primary">Me contacter</a>
   </div>
@@ -400,7 +454,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
 <main id="top">
   <section class="hero">
     <div class="container">
-      <span class="eyebrow intro" style="--i:0"><span class="dot"></span>Ouvert aux stages et alternances</span>
+      <span class="eyebrow intro" style="--i:0"><span class="dot"></span>Terminale CIEL · À la recherche d'un BTS CIEL</span>
       <h1>
         <span class="w" style="--i:0"><span>Diagnostiquer,</span></span>
         <span class="w" style="--i:1"><span>réparer,</span></span>
@@ -412,17 +466,17 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
         <span class="w" style="--i:7"><span>au</span></span>
         <span class="w" style="--i:8"><span>smartphone.</span></span></span>
       </h1>
-      <p class="lead intro" style="--i:2">Ce portfolio rassemble mes compétences en maintenance et support informatique, construites en atelier, au contact des clients, en cours et sur mes projets perso.</p>
+      <p class="lead intro" style="--i:2">Je m'appelle Swan, élève en Terminale CIEL au lycée Maryse Bastié. Ce portfolio rassemble ce que j'ai appris en atelier, au contact des clients et en cours, avec un objectif : devenir ingénieur en cybersécurité.</p>
       <div class="hero-ctas intro" style="--i:3">
         <a href="#competences" class="btn btn-primary">Voir mes compétences <span class="arrow">→</span></a>
         <a href="#stage" class="btn btn-secondary">Journal de stage</a>
       </div>
 
       <div class="stats intro" style="--i:4">
-        <div class="stat"><div class="stat-num" data-count="4">4</div><div class="stat-label">semaines de stage en atelier</div></div>
+        <div class="stat"><div class="stat-num" data-count="5">5</div><div class="stat-label">mois de formation en entreprise</div></div>
         <div class="stat"><div class="stat-num" data-count="9">9</div><div class="stat-label">domaines de compétences</div></div>
-        <div class="stat"><div class="stat-num" data-count="3">3</div><div class="stat-label">projets réalisés en boutique</div></div>
-        <div class="stat"><div class="stat-num" data-count="100" data-suffix="%">100%</div><div class="stat-label">des jours au contact des clients</div></div>
+        <div class="stat"><div class="stat-num" data-count="3">3</div><div class="stat-label">projets menés en entreprise</div></div>
+        <div class="stat"><div class="stat-num" data-count="3">3</div><div class="stat-label">saisons bénévole au FC Guéret</div></div>
       </div>
 
       <div class="panel-wrap">
@@ -448,7 +502,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
       <div class="section-head" data-reveal>
         <span class="eyebrow">Compétences</span>
         <h2 class="grad">Ce que je sais faire</h2>
-        <p class="lead">Neuf domaines, du diagnostic matériel à la relation client. Les badges <span class="badge">Nouveau</span> marquent ce que j'ai appris pendant le stage.</p>
+        <p class="lead">Neuf domaines, du diagnostic matériel à la relation client. Les badges <span class="badge">Nouveau</span> marquent ce que j'ai découvert pendant mon stage de mars 2026.</p>
       </div>
       <div class="grid" id="skills" data-stagger></div>
     </div>
@@ -472,7 +526,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   <section id="stage">
     <div class="container">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">Stage · 9 mars → 3 avril 2026</span>
+        <span class="eyebrow">PFMP · 9 mars → 3 avril 2026</span>
         <h2 class="grad">Journal de stage</h2>
         <p class="lead">Quatre semaines en boutique de réparation informatique : atelier, accueil, interventions chez les clients. Chaque journée commençait par la prise des appels clients.</p>
       </div>
@@ -492,7 +546,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
       <div class="section-head" data-reveal>
         <span class="eyebrow">Projets</span>
         <h2 class="grad">Réalisations en boutique</h2>
-        <p class="lead">Au-delà des réparations, trois projets que j'ai menés de A à Z pendant le stage.</p>
+        <p class="lead">Au-delà des réparations, trois projets que j'ai menés de A à Z pendant mes périodes en entreprise.</p>
       </div>
       <div class="grid" data-stagger>
         <article class="card project">
@@ -537,17 +591,17 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
           <div class="project-visual">
             <div class="term">
               <div class="term-dots"><i></i><i></i><i></i></div>
-              <span class="tl" style="--t:0"><span class="p">$</span> affiches --magasin</span>
-              <span class="tl muted" style="--t:1">signalétique · vente · avis</span>
+              <span class="tl" style="--t:0"><span class="p">$</span> identite --visuelle</span>
+              <span class="tl muted" style="--t:1">logo · affiches · signalétique</span>
               <span class="tl ok" style="--t:2">✓ boutique réaménagée<span class="caret"></span></span>
             </div>
           </div>
           <div class="project-body">
-            <h3>Signalétique du magasin</h3>
-            <p>Création des affiches et pancartes de la boutique et réflexion sur un nouvel agencement.</p>
+            <h3>Identité visuelle &amp; signalétique</h3>
+            <p>Création d'une identité visuelle pour l'entreprise, des affiches du magasin et réflexion sur un nouvel agencement.</p>
             <ol class="steps">
-              <li>Affiches de signalétique</li>
-              <li>Affiches de vente d'ordinateurs reconditionnés</li>
+              <li>Identité visuelle de l'entreprise</li>
+              <li>Affiches de signalétique et de vente</li>
               <li>Réaménagement du poste d'accueil</li>
             </ol>
           </div>
@@ -560,23 +614,52 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
     <div class="container">
       <div class="section-head" data-reveal>
         <span class="eyebrow">Parcours</span>
-        <h2 class="grad">D'où viennent ces compétences</h2>
+        <h2 class="grad">Formation et expériences</h2>
       </div>
-      <div class="timeline" data-reveal>
-        <div class="tl-row">
-          <span class="tl-when">MARS → AVRIL 2026</span>
-          <div><h3>Stage en boutique de réparation informatique</h3><p>Maintenance PC et Mac, téléphonie, imprimantes, reconditionnement, accueil et relation client.</p></div>
-          <span class="badge">4 semaines</span>
+      <div class="parcours">
+        <div data-reveal>
+          <div class="col-title">Formation</div>
+          <div class="timeline">
+            <div class="tl-row"><span class="tl-when">2026 – 2027</span><div><h3>Terminale CIEL <span class="badge">En cours</span></h3><p>Lycée Maryse Bastié</p></div></div>
+            <div class="tl-row"><span class="tl-when">2025 – 2026</span><div><h3>Première CIEL</h3><p>Lycée Maryse Bastié</p></div></div>
+            <div class="tl-row"><span class="tl-when">2024 – 2025</span><div><h3>Seconde MTNE</h3><p>Lycée Maryse Bastié</p></div></div>
+            <div class="tl-row"><span class="tl-when">2024</span><div><h3>Brevet des collèges</h3><p>Collège Jules Marouzeau</p></div></div>
+          </div>
         </div>
-        <div class="tl-row">
-          <span class="tl-when">FORMATION</span>
-          <div><h3>Ce que j'apprends en cours</h3><p>Section en cours de rédaction.</p></div>
-          <span class="badge soon">Bientôt</span>
+        <div data-reveal style="--d:1">
+          <div class="col-title">Expériences</div>
+          <div class="timeline">
+            <div class="tl-row"><span class="tl-when">2024 – 2027</span><div><h3>Formation en entreprise · WICLIC <span class="badge">5 mois</span></h3><p>Montage et réparation de PC, installation de postes, transfert de données, gestion des stocks et des factures, accueil et vente en magasin. Guéret.</p></div></div>
+            <div class="tl-row"><span class="tl-when">2024 – 2027</span><div><h3>Bénévole · FC Guéret</h3><p>Responsable de la communication digitale du club, et coup de main sur les entraînements, la buvette et l'entretien.</p></div></div>
+            <div class="tl-row"><span class="tl-when">DÉC. 2023</span><div><h3>Stage d'observation · DOCPC <span class="badge soon">3 jours</span></h3><p>Découverte d'une entreprise d'informatique, gestion des stocks et des commandes, premières réparations de téléphones. Guéret.</p></div></div>
+          </div>
         </div>
-        <div class="tl-row">
-          <span class="tl-when">À LA MAISON</span>
-          <div><h3>Projets perso</h3><p>Section en cours de rédaction.</p></div>
-          <span class="badge soon">Bientôt</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="objectif">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Projet professionnel</span>
+        <h2 class="grad">Objectif : ingénieur en cybersécurité</h2>
+        <p class="lead">Après mon Bac CIEL, je veux poursuivre en BTS CIEL, puis en licence et en master spécialisé, pour protéger les systèmes informatiques et les réseaux contre les cyberattaques.</p>
+      </div>
+      <div class="road" data-reveal>
+        <div class="road-track"><span class="road-fill"></span></div>
+        <ol class="road-steps">
+          <li class="road-step now" style="--s:0"><span class="road-dot"></span><span class="road-when">2027</span><h3>Bac CIEL</h3><p>Terminale au lycée Maryse Bastié <span class="badge">Je suis ici</span></p></li>
+          <li class="road-step" style="--s:1"><span class="road-dot"></span><span class="road-when">Étape 2</span><h3>BTS CIEL</h3><p>Cybersécurité, informatique et réseaux</p></li>
+          <li class="road-step" style="--s:2"><span class="road-dot"></span><span class="road-when">Étape 3</span><h3>Licence</h3><p>Renforcer mes bases en réseaux et systèmes</p></li>
+          <li class="road-step" style="--s:3"><span class="road-dot"></span><span class="road-when">Étape 4</span><h3>Master cybersécurité</h3><p>Me spécialiser dans la sécurité des systèmes</p></li>
+          <li class="road-step" style="--s:4"><span class="road-dot"></span><span class="road-when">Objectif</span><h3>Ingénieur cybersécurité</h3><p>Protéger les systèmes et les réseaux contre les cyberattaques</p></li>
+        </ol>
+      </div>
+      <div class="interests" data-reveal>
+        <span class="col-title">Centres d'intérêt</span>
+        <div class="chips">
+          <span class="chip">Informatique &amp; nouvelles technologies</span>
+          <span class="chip">Réseaux &amp; cybersécurité</span>
         </div>
       </div>
     </div>
@@ -586,8 +669,8 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
     <div class="container">
       <div class="cta" data-reveal>
         <div>
-          <h2>Un stage, une alternance, une panne ?</h2>
-          <p class="muted" style="margin-top:10px">Retrouve mes projets et contacte-moi sur GitHub.</p>
+          <h2>Un BTS CIEL, une alternance, un stage ?</h2>
+          <p class="muted" style="margin-top:10px">Écrivez-moi, je réponds rapidement.</p>
         </div>
         <div class="cta-actions">
           <a class="btn btn-primary" data-email href="#">Envoyer un mail <span class="arrow">→</span></a>
@@ -611,8 +694,8 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
 <script>
 // ✏️ Modifie ces infos avec les tiennes
 const PROFIL = {
-  nom: "skz351",
-  email: "",
+  nom: "Swan Marquentin",
+  email: "swan.marquentin@gmail.com",
   github: "https://github.com/skz351",
   linkedin: "",
 };
@@ -631,12 +714,12 @@ const ICONS = {
 const icon = n => `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
 
 const SKILLS = [
-  { i: "cpu", t: "Maintenance matériel", d: "Diagnostic, démontage et réparation de PC fixes, portables et tout-en-un.",
-    l: ["Diagnostic de pannes (PC qui ne démarre plus)", "Changement de carte graphique et de ventirad", "Remplacement de pâte thermique", "Réparation de dalle d'écran", "Nettoyage physique complet"] },
+  { i: "cpu", t: "Montage & maintenance matériel", d: "Montage, diagnostic et réparation de PC fixes, portables et tout-en-un.",
+    l: ["Montage et préparation de PC", "Installation de composants (disques, processeurs, cartes graphiques)", "Diagnostic et réparation de pannes matérielles", "Changement de ventirad et de pâte thermique", "Réparation de dalle d'écran et nettoyage complet"] },
   { i: "os", t: "Systèmes d'exploitation", d: "Installation, réparation et nettoyage de Windows et macOS.",
     l: ["Réinstallation de Windows en gardant les données", ["Installation et configuration de macOS", 1], "Nettoyage logiciel et antivirus", "Réinitialisation complète d'un PC", "Déblocage de mot de passe Windows local"] },
   { i: "disk", t: "Stockage & données", d: "Sauvegarder, récupérer et déplacer les données sans rien perdre.",
-    l: ["Clonage de disques et SSD", "Récupération de données sur disque démonté", "Transfert vers un nouveau poste", "Test et diagnostic de disques / SSD", "Ajout d'un second disque"] },
+    l: ["Clonage de disques et SSD", "Formatage et réparation de disques", "Récupération de données sur disque démonté", "Transfert de données avec un IODD", "Test et diagnostic de disques / SSD"] },
   { i: "print", t: "Imprimantes & périphériques", d: "Des pages blanches à l'impression en rose : diagnostic et remise en état.",
     l: ["Diagnostic des défauts d'impression", "Nettoyage des têtes d'impression", "Changement de cartouches", "Reconfiguration de plusieurs imprimantes", "Configuration d'un scanner"] },
   { i: "phone", t: "Téléphonie mobile", d: "Réparation de smartphones, du diagnostic à la commande de pièces.",
@@ -644,11 +727,11 @@ const SKILLS = [
   { i: "net", t: "Réseau & messagerie", d: "Remettre une machine en ligne et rétablir l'envoi des mails.",
     l: ["Dépannage de carte réseau", ["Configuration SMTP d'une boîte mail", 1], "Diagnostic de pavé numérique sur poste neuf"] },
   { i: "deploy", t: "Déploiement de postes", d: "Préparer un poste prêt à l'emploi pour un particulier ou une entreprise.",
-    l: ["Préparation de nouveaux postes", "Migration des fichiers utilisateur", "Réaménagement d'un poste d'accueil", "Livraison en entreprise avec XEFI", ["Clé USB Ventoy multi-outils", 1]] },
-  { i: "recycle", t: "Reconditionnement", d: "Donner une seconde vie aux ordinateurs et les remettre en vente.",
-    l: ["Estimation du coût de réparation", "Estimation du prix de revente", "Remise à zéro et nettoyage", "Préparation à la vente et affiche produit"] },
-  { i: "user", t: "Relation client & communication", d: "Accueil, téléphone, interventions sur site et supports visuels.",
-    l: ["Prise des appels clients au quotidien", "Intervention chez un client", "Suivi et rappel des clients", "Création d'affiches et pancartes", ["Système d'avis client par NFC", 1]] },
+    l: ["Installation et configuration de postes informatiques", "Migration des fichiers utilisateur", "Réaménagement d'un poste d'accueil", "Livraison en entreprise avec XEFI", ["Clé USB Ventoy multi-outils", 1]] },
+  { i: "recycle", t: "Gestion & reconditionnement", d: "Faire tourner l'atelier et donner une seconde vie aux ordinateurs.",
+    l: ["Gestion des stocks, commandes et factures", "Estimation du coût de réparation et du prix de revente", "Remise à zéro et préparation à la vente", "Réception de colis et organisation de l'atelier"] },
+  { i: "user", t: "Relation client & communication", d: "Accueil, conseil, vente et supports visuels.",
+    l: ["Accueil, conseil et vente en magasin", "Prise des appels clients au quotidien", "Intervention chez un client", "Identité visuelle et affiches pour l'entreprise", "Communication digitale du FC Guéret"] },
 ];
 
 const TICKETS = [
