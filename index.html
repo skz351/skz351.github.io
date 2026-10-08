@@ -122,6 +122,7 @@ h2 { font-size: 48px; font-weight: 600; line-height: 1.1; letter-spacing: -1.6px
 h3 { font-size: 20px; font-weight: 500; line-height: 1.25; letter-spacing: -0.4px; }
 .lead { font-size: 18px; color: var(--ink-subtle); letter-spacing: -0.1px; max-width: 600px; }
 .muted { color: var(--ink-subtle); }
+.path { font-family: var(--mono); font-size: 12px; letter-spacing: 0; color: var(--primary-hover); }
 .grad {
   background: linear-gradient(180deg, var(--ink) 30%, rgba(247,248,248,.55));
   -webkit-background-clip: text; background-clip: text; color: transparent;
@@ -184,30 +185,31 @@ section { padding: 96px 0; }
 .panel-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--hairline); }
 .panel-title { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 500; color: var(--ink-muted); }
 .panel-title .brand-mark { width: 18px; height: 18px; font-size: 9px; border-radius: 5px; }
-.panel-filters { display: flex; gap: 6px; }
 .chip { font-size: 12px; color: var(--ink-subtle); padding: 3px 10px; border-radius: 999px; border: 1px solid var(--hairline); }
 .chip.on { background: var(--surface-3); color: var(--ink); border-color: var(--hairline-strong); }
-.group-head { display: flex; align-items: center; gap: 8px; padding: 8px 16px; background: var(--surface-2); font-size: 12px; font-weight: 500; color: var(--ink-muted); border-bottom: 1px solid var(--hairline); }
-.group-head .count { color: var(--ink-tertiary); }
-.ticket {
-  display: grid; grid-template-columns: 16px 64px 1fr auto; align-items: center; gap: 14px;
-  padding: 11px 16px; border-bottom: 1px solid var(--hairline); font-size: 14px;
-  animation: rowIn 700ms var(--ease-out) both; animation-delay: calc(1500ms + var(--i) * 90ms);
-  transition: background-color 150ms ease;
+.term-dots { display: flex; gap: 6px; }
+.term-dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--hairline-strong); }
+.term-panel .panel-title { font-family: var(--mono); font-size: 12px; color: var(--ink-subtle); }
+.term-hint { font-size: 12px; color: var(--ink-tertiary); }
+kbd { font-family: var(--mono); font-size: 11px; color: var(--ink-muted); padding: 1px 6px; border: 1px solid var(--hairline-strong); border-radius: 4px; background: var(--surface-2); }
+.term-body {
+  height: 320px; overflow-y: auto; padding: 18px 20px 20px; cursor: text;
+  font-family: var(--mono); font-size: 13px; line-height: 1.7; color: var(--ink-muted);
+  scrollbar-width: thin; scrollbar-color: var(--hairline-strong) transparent;
 }
-.ticket:last-child { border-bottom: 0; }
-.ticket:hover { background: var(--surface-2); }
-@keyframes rowIn { from { opacity: 0; transform: translateY(10px); } }
-.ticket-id { font-family: var(--mono); font-size: 12px; color: var(--ink-tertiary); }
-.ticket-title { color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ticket-tag { font-size: 12px; color: var(--ink-subtle); display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border: 1px solid var(--hairline); border-radius: 999px; }
-.ticket-tag i { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
-.status { width: 14px; height: 14px; border-radius: 50%; display: grid; place-items: center; background: var(--primary); }
-.status svg { width: 9px; height: 9px; }
-.ticket .status { animation: pop 500ms var(--ease-out) both; animation-delay: calc(1750ms + var(--i) * 90ms); }
-.ticket .status path { stroke-dasharray: 10; animation: draw 450ms var(--ease-out) both; animation-delay: calc(1900ms + var(--i) * 90ms); }
-@keyframes pop { from { transform: scale(.5); opacity: 0; } }
-@keyframes draw { from { stroke-dashoffset: 10; } }
+.term-body .ln { white-space: pre-wrap; word-break: break-word; animation: fadeOnly 200ms ease-out both; }
+.term-body .cmd { color: var(--ink); }
+.term-body .prompt, .term-body .ln .p { color: var(--primary-hover); }
+.term-body .dim { color: var(--ink-tertiary); }
+.term-body .ok { color: var(--success); }
+.term-body .warn { color: #f2994a; }
+.term-body a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--hairline-strong); text-underline-offset: 3px; }
+.term-line { display: flex; gap: 10px; align-items: baseline; }
+.term-line input {
+  flex: 1; min-width: 0; background: transparent; border: 0; outline: none; padding: 0;
+  font: inherit; color: var(--ink); caret-color: var(--primary-hover);
+}
+.term-line.busy { visibility: hidden; }
 
 /* Scroll reveal */
 .js [data-reveal] {
@@ -304,7 +306,8 @@ section { padding: 96px 0; }
   transition-delay: calc(450ms + var(--s) * 380ms);
 }
 .js .is-in .road-step > :not(.road-dot) { opacity: 1; transform: none; }
-.interests { margin-top: 56px; }
+.interests, .tools { margin-top: 56px; }
+.tools .chip { font-family: var(--mono); font-size: 13px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips .chip { font-size: 14px; padding: 6px 14px; color: var(--ink-muted); background: var(--surface-1); }
 
@@ -346,9 +349,8 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   .stat, .stat + .stat { padding: 20px 0 0; border-left: 0; }
   .grid { grid-template-columns: 1fr; }
   .panel-wrap { margin-top: 48px; }
-  .panel-filters { display: none; }
-  .ticket { grid-template-columns: 16px 1fr; gap: 10px; }
-  .ticket-id, .ticket-tag { display: none; }
+  .term-body { height: 280px; font-size: 12px; padding: 14px 16px; }
+  .term-hint { display: none; }
   .tl-row { grid-template-columns: 1fr; gap: 6px; }
   .parcours { grid-template-columns: 1fr; gap: 32px; }
   .road-track { left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent); mask-image: linear-gradient(180deg, #000 80%, transparent); }
@@ -362,8 +364,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .w > span, .intro, .panel, .ticket, .ticket .status { animation-name: fadeOnly; }
-  .ticket .status path { animation: none; }
+  .w > span, .intro, .panel { animation-name: fadeOnly; }
   .panel::after, .dot::after, .progress { animation: none; }
   .progress { display: none; }
   .js [data-reveal] { transform: none; transition: opacity 400ms ease; }
@@ -418,18 +419,19 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
       </div>
 
       <div class="panel-wrap">
-        <div class="panel" aria-label="Principaux savoir-faire">
+        <div class="panel term-panel">
           <div class="panel-bar">
-            <div class="panel-title"><span class="brand-mark" data-initials>PN</span>Atelier · Savoir-faire</div>
-            <div class="panel-filters">
-              <span class="chip on">Toutes</span><span class="chip">Matériel</span><span class="chip">Systèmes</span><span class="chip">Mobile</span>
-            </div>
+            <div class="term-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <div class="panel-title">swan@portfolio: ~</div>
+            <div class="term-hint">Tape <kbd>help</kbd></div>
           </div>
-          <div class="group-head">
-            <span class="status"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5.2l2 2 4-4.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            Maîtrisé <span class="count">6</span>
+          <div class="term-body" id="term">
+            <div id="termOut" aria-live="polite"></div>
+            <form class="term-line" id="termForm" autocomplete="off">
+              <label class="prompt" for="termIn">swan@portfolio:~$</label>
+              <input id="termIn" type="text" spellcheck="false" autocapitalize="off" aria-label="Commande du terminal">
+            </form>
           </div>
-          <div id="tickets"></div>
         </div>
       </div>
     </div>
@@ -438,18 +440,24 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   <section id="competences">
     <div class="container">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">Compétences</span>
+        <span class="eyebrow path">~/competences</span>
         <h2 class="grad">Ce que je sais faire</h2>
         <p class="lead">Neuf domaines, du diagnostic matériel à la relation client, appris en entreprise et en cours.</p>
       </div>
       <div class="grid" id="skills" data-stagger></div>
+      <div class="tools" data-reveal>
+        <span class="col-title">Outils &amp; environnements</span>
+        <div class="chips">
+          <span class="chip">Windows</span><span class="chip">macOS</span><span class="chip">Ventoy</span><span class="chip">IODD</span><span class="chip">SMTP</span><span class="chip">NFC</span>
+        </div>
+      </div>
     </div>
   </section>
 
   <section id="parcours">
     <div class="container">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">Parcours</span>
+        <span class="eyebrow path">~/parcours</span>
         <h2 class="grad">Formation et expériences</h2>
       </div>
       <div class="parcours">
@@ -477,7 +485,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   <section id="objectif">
     <div class="container">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">Projet professionnel</span>
+        <span class="eyebrow path">~/objectif</span>
         <h2 class="grad">Objectif : ingénieur en cybersécurité</h2>
         <p class="lead">Après mon Bac CIEL, je veux poursuivre en BTS CIEL, puis en licence et en master spécialisé, pour protéger les systèmes informatiques et les réseaux contre les cyberattaques.</p>
       </div>
@@ -570,15 +578,6 @@ const SKILLS = [
     l: ["Accueil, conseil et vente en magasin", "Gestion des appels et suivi des clients", "Interventions chez les clients", "Création d'identités visuelles, d'affiches et de signalétique", "Mise en place de solutions sans contact (tags NFC)", "Communication digitale"] },
 ];
 
-const TICKETS = [
-  ["MAT-01", "Diagnostic et réparation de PC et de Mac", "Matériel", "#f2994a"],
-  ["SYS-02", "Installation et dépannage de Windows et macOS", "Systèmes", "#5e6ad2"],
-  ["DAT-03", "Clonage, récupération et transfert de données", "Données", "#8a8f98"],
-  ["MOB-04", "Réparation de smartphones : batteries et écrans", "Mobile", "#27a644"],
-  ["IMP-05", "Dépannage et configuration d'imprimantes", "Périphériques", "#f2c94c"],
-  ["RES-06", "Configuration réseau et messagerie", "Réseau", "#5e6ad2"],
-];
-
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const item = x => `<li><span>${esc(x)}</span></li>`;
@@ -591,15 +590,6 @@ document.getElementById("skills").innerHTML = SKILLS.map(s => `
     <ul class="skill-list">${s.l.map(item).join("")}</ul>
   </article>`).join("");
 
-const check = '<span class="status"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5.2l2 2 4-4.4" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
-document.getElementById("tickets").innerHTML = TICKETS.map(([id, title, tag, color], i) => `
-  <div class="ticket" style="--i:${i}">
-    ${check}
-    <span class="ticket-id">${id}</span>
-    <span class="ticket-title">${esc(title)}</span>
-    <span class="ticket-tag"><i style="background:${color}"></i>${tag}</span>
-  </div>`).join("");
-
 // Profile
 const initials = PROFIL.nom.split(/\s+/).map(p => p[0]).join("").slice(0, 2).toUpperCase();
 document.querySelectorAll("[data-name]").forEach(el => el.textContent = PROFIL.nom);
@@ -611,6 +601,119 @@ document.querySelectorAll("[data-initials]").forEach(el => el.textContent = init
   });
 document.querySelector(".cta .btn")?.classList.replace("btn-secondary", "btn-primary");
 document.getElementById("year").textContent = new Date().getFullYear();
+
+// Interactive terminal
+(() => {
+  const out = document.getElementById("termOut");
+  const body = document.getElementById("term");
+  const form = document.getElementById("termForm");
+  const input = document.getElementById("termIn");
+  const history = [];
+  let hIndex = 0, typing = true;
+
+  const line = (parts, cls) => {
+    const el = document.createElement("div");
+    el.className = "ln" + (cls ? " " + cls : "");
+    for (const part of [].concat(parts)) {
+      if (typeof part === "string") { el.append(part); continue; }
+      const node = document.createElement(part.href ? "a" : "span");
+      node.textContent = part.text;
+      if (part.cls) node.className = part.cls;
+      if (part.href) { node.href = part.href; if (!part.href.startsWith("mailto:")) { node.target = "_blank"; node.rel = "noopener"; } }
+      el.append(node);
+    }
+    out.append(el);
+    body.scrollTop = body.scrollHeight;
+  };
+  const echo = cmd => line([{ text: "swan@portfolio:~$ ", cls: "p" }, { text: cmd, cls: "cmd" }]);
+
+  const COMMANDS = {
+    help: () => {
+      line({ text: "Commandes disponibles :", cls: "dim" });
+      [["whoami", "qui je suis"], ["competences", "ce que je sais faire"], ["parcours", "formation et expériences"],
+       ["objectif", "mon projet professionnel"], ["contact", "me joindre"], ["github", "ouvrir mon GitHub"], ["clear", "effacer l'écran"]]
+        .forEach(([c, d]) => line([{ text: c.padEnd(13), cls: "cmd" }, { text: d, cls: "dim" }]));
+    },
+    whoami: () => {
+      line({ text: PROFIL.nom, cls: "cmd" });
+      line("Élève en Terminale CIEL · Lycée Maryse Bastié");
+      line({ text: "→ à la recherche d'un BTS CIEL", cls: "ok" });
+    },
+    competences: () => SKILLS.forEach(sk => line(["▸ ", { text: sk.t, cls: "cmd" }])),
+    parcours: () => {
+      line({ text: "# Formation", cls: "dim" });
+      line("2026–2027  Terminale CIEL  · Lycée Maryse Bastié");
+      line("2025–2026  Première CIEL   · Lycée Maryse Bastié");
+      line("2024–2025  Seconde MTNE    · Lycée Maryse Bastié");
+      line({ text: "# Expériences", cls: "dim" });
+      line("2024–2027  WICLIC, Guéret  · 5 mois en entreprise");
+      line("2024–2027  FC Guéret       · communication digitale");
+      line("2023       DOCPC, Guéret   · stage d'observation");
+    },
+    objectif: () => {
+      line("Bac CIEL → BTS CIEL → Licence → Master cybersécurité");
+      line({ text: "→ Ingénieur en cybersécurité", cls: "ok" });
+    },
+    contact: () => {
+      if (PROFIL.email) line(["mail    ", { text: PROFIL.email, href: "mailto:" + PROFIL.email }]);
+      line(["github  ", { text: PROFIL.github.replace("https://", ""), href: PROFIL.github }]);
+    },
+    github: () => { line(["Ouverture de ", { text: PROFIL.github.replace("https://", ""), href: PROFIL.github }, "…"]); open(PROFIL.github, "_blank", "noopener"); },
+    clear: () => { out.textContent = ""; },
+  };
+  const ALIASES = { ls: "competences", skills: "competences", "ls competences": "competences", "ls competences/": "competences",
+                    "cat objectif.txt": "objectif", aide: "help", "?": "help", cv: "parcours", mail: "contact" };
+
+  function run(raw) {
+    const cmd = raw.trim().replace(/\s+/g, " ");
+    echo(raw);
+    if (!cmd) return;
+    const key = ALIASES[cmd.toLowerCase()] || cmd.toLowerCase();
+    if (COMMANDS[key]) return COMMANDS[key]();
+    if (/^sudo\b/i.test(cmd)) return line({ text: "swan n'est pas dans le fichier sudoers. Cet incident sera signalé.", cls: "warn" });
+    if (/^rm\b/i.test(cmd)) return line({ text: "Bien tenté. Rien n'a été supprimé.", cls: "warn" });
+    line([{ text: "commande introuvable : ", cls: "warn" }, cmd, { text: " — tape help", cls: "dim" }]);
+  }
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    if (typing) return;
+    const v = input.value;
+    if (v.trim()) { history.push(v); hIndex = history.length; }
+    input.value = "";
+    run(v);
+  });
+  input.addEventListener("keydown", e => {
+    if (e.key === "ArrowUp" && history.length) { hIndex = Math.max(0, hIndex - 1); input.value = history[hIndex]; e.preventDefault(); }
+    if (e.key === "ArrowDown" && history.length) { hIndex = Math.min(history.length, hIndex + 1); input.value = history[hIndex] || ""; e.preventDefault(); }
+  });
+  body.addEventListener("click", () => { if (!getSelection().toString()) input.focus({ preventScroll: true }); });
+
+  const intro = ["whoami", "cat objectif.txt", "ls competences/"];
+  const finish = () => { typing = false; form.classList.remove("busy"); line({ text: "Tape help pour voir les commandes.", cls: "dim" }); };
+  form.classList.add("busy");
+  if (reduceMotion) { intro.forEach(run); finish(); return; }
+
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+  let skip = false;
+  input.addEventListener("focus", () => { skip = true; }, { once: true });
+  (async () => {
+    await sleep(2200);
+    for (const cmd of intro) {
+      if (skip) { run(cmd); continue; }
+      const el = document.createElement("div");
+      el.className = "ln";
+      el.innerHTML = '<span class="p">swan@portfolio:~$ </span><span class="cmd"></span>';
+      out.append(el);
+      const target = el.lastChild;
+      for (const ch of cmd) { if (skip) break; target.textContent += ch; await sleep(55 + Math.random() * 45); }
+      el.remove();
+      COMMANDS[ALIASES[cmd] || cmd] && (echo(cmd), (COMMANDS[ALIASES[cmd] || cmd])());
+      if (!skip) await sleep(650);
+    }
+    finish();
+  })();
+})();
 
 // Scroll reveal, staggered per row
 document.querySelectorAll("[data-stagger]").forEach(p =>
