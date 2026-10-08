@@ -252,6 +252,12 @@ kbd { font-family: var(--mono); font-size: 11px; color: var(--ink-muted); paddin
   transition: color 200ms ease, border-color 200ms ease, transform 300ms var(--ease-out);
 }
 .card-icon svg { width: 16px; height: 16px; }
+.card.wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; padding: 32px; }
+.wide-intro { display: flex; flex-direction: column; gap: 14px; }
+.wide-intro h3 { font-size: 24px; letter-spacing: -0.6px; }
+.wide-intro p { font-size: 15px; max-width: 460px; }
+.card.wide .chip { font-family: var(--mono); font-size: 12px; }
+.card.wide .skill-list { font-size: 15px; gap: 10px; }
 .card p { font-size: 14px; color: var(--ink-subtle); }
 .skill-list { display: flex; flex-direction: column; gap: 8px; font-size: 14px; color: var(--ink-muted); }
 .skill-list li { display: flex; gap: 10px; align-items: baseline; }
@@ -348,6 +354,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   .stats { grid-template-columns: repeat(2, 1fr); }
   .stat, .stat + .stat { padding: 20px 0 0; border-left: 0; }
   .grid { grid-template-columns: 1fr; }
+  .card.wide { grid-template-columns: 1fr; padding: 24px; gap: 20px; }
   .panel-wrap { margin-top: 48px; }
   .term-body { height: 280px; font-size: 12px; padding: 14px 16px; }
   .term-hint { display: none; }
@@ -405,7 +412,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
         <span class="w" style="--i:7"><span>au</span></span>
         <span class="w" style="--i:8"><span>smartphone.</span></span></span>
       </h1>
-      <p class="lead intro" style="--i:2">Je m'appelle Swan, élève en Terminale CIEL au lycée Maryse Bastié. Ce portfolio rassemble ce que j'ai appris en atelier, au contact des clients et en cours, avec un objectif : devenir ingénieur en cybersécurité.</p>
+      <p class="lead intro" style="--i:2">Je m'appelle Swan, élève en Terminale CIEL au lycée Maryse Bastié. Je dépanne des ordinateurs en atelier et je crée des sites web pour des entreprises. Mon objectif : devenir ingénieur en cybersécurité.</p>
       <div class="hero-ctas intro" style="--i:3">
         <a href="#competences" class="btn btn-primary">Voir mes compétences <span class="arrow">→</span></a>
         <a href="#parcours" class="btn btn-secondary">Mon parcours</a>
@@ -413,7 +420,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
 
       <div class="stats intro" style="--i:4">
         <div class="stat"><div class="stat-num" data-count="5">5</div><div class="stat-label">mois de formation en entreprise</div></div>
-        <div class="stat"><div class="stat-num" data-count="9">9</div><div class="stat-label">domaines de compétences</div></div>
+        <div class="stat"><div class="stat-num" data-count="10">10</div><div class="stat-label">domaines de compétences</div></div>
         <div class="stat"><div class="stat-num" data-count="2">2</div><div class="stat-label">entreprises d'informatique</div></div>
         <div class="stat"><div class="stat-num" data-count="3">3</div><div class="stat-label">saisons bénévole au FC Guéret</div></div>
       </div>
@@ -442,13 +449,13 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
       <div class="section-head" data-reveal>
         <span class="eyebrow path">~/competences</span>
         <h2 class="grad">Ce que je sais faire</h2>
-        <p class="lead">Neuf domaines, du diagnostic matériel à la relation client, appris en entreprise et en cours.</p>
+        <p class="lead">Dix domaines, du diagnostic matériel à la création de sites web, appris en entreprise, en cours et sur mes propres projets.</p>
       </div>
       <div class="grid" id="skills" data-stagger></div>
       <div class="tools" data-reveal>
         <span class="col-title">Outils &amp; environnements</span>
         <div class="chips">
-          <span class="chip">Windows</span><span class="chip">macOS</span><span class="chip">Ventoy</span><span class="chip">IODD</span><span class="chip">SMTP</span><span class="chip">NFC</span>
+          <span class="chip">Windows</span><span class="chip">macOS</span><span class="chip">Ventoy</span><span class="chip">IODD</span><span class="chip">SMTP</span><span class="chip">NFC</span><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Netlify</span>
         </div>
       </div>
     </div>
@@ -513,7 +520,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
     <div class="container">
       <div class="cta" data-reveal>
         <div>
-          <h2>Un BTS CIEL, une alternance, un stage ?</h2>
+          <h2>Un BTS CIEL, une alternance, un site web ?</h2>
           <p class="muted" style="margin-top:10px">Écrivez-moi, je réponds rapidement.</p>
         </div>
         <div class="cta-actions">
@@ -553,6 +560,7 @@ const ICONS = {
   net: '<circle cx="8" cy="8" r="6"/><path d="M2 8h12M8 2c1.8 1.7 2.6 3.7 2.6 6S9.8 12.3 8 14c-1.8-1.7-2.6-3.7-2.6-6S6.2 3.7 8 2z"/>',
   deploy: '<rect x="1.5" y="3" width="6" height="5" rx="1"/><rect x="8.5" y="8" width="6" height="5" rx="1"/><path d="M7.5 5.5h2.5a1.5 1.5 0 011.5 1.5v1"/>',
   recycle: '<path d="M13 8a5 5 0 01-8.6 3.5M3 8a5 5 0 018.6-3.5"/><path d="M11.5 1.8v2.7H8.8M4.5 14.2v-2.7h2.7"/>',
+  web: '<rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><path d="M1.5 5.5h13M6.5 8l-1.5 1.5 1.5 1.5M9.5 8l1.5 1.5-1.5 1.5"/>',
   user: '<circle cx="8" cy="5.5" r="2.8"/><path d="M2.5 14c.6-2.6 2.8-4.2 5.5-4.2s4.9 1.6 5.5 4.2"/>',
 };
 const icon = n => `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]}</svg>`;
@@ -576,13 +584,25 @@ const SKILLS = [
     l: ["Gestion des stocks, commandes et factures", "Estimation des réparations et du prix de revente", "Reconditionnement : remise à zéro, nettoyage, mise en vente", "Réception du matériel et organisation de l'atelier"] },
   { i: "user", t: "Relation client & communication", d: "Accueil, conseil, vente et supports visuels.",
     l: ["Accueil, conseil et vente en magasin", "Gestion des appels et suivi des clients", "Interventions chez les clients", "Création d'identités visuelles, d'affiches et de signalétique", "Mise en place de solutions sans contact (tags NFC)", "Communication digitale"] },
+  { i: "web", t: "Création de sites web", wide: true, tech: ["HTML", "CSS", "JavaScript", "Netlify"],
+    d: "Je conçois et mets en ligne des sites sur mesure pour des entreprises et des associations, du design jusqu'à l'hébergement.",
+    l: ["Sites vitrines et boutiques en ligne sur mesure", "Design responsive, pensé pour le mobile", "Espace d'administration pour que le client modifie son contenu", "Pages légales : mentions légales, CGV, confidentialité, rétractation", "Mise en ligne et hébergement", "Suivi et mises à jour selon les saisons et les événements"] },
 ];
 
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const item = x => `<li><span>${esc(x)}</span></li>`;
 
-document.getElementById("skills").innerHTML = SKILLS.map(s => `
+document.getElementById("skills").innerHTML = SKILLS.map(s => s.wide ? `
+  <article class="card wide">
+    <div class="wide-intro">
+      <div class="card-icon">${icon(s.i)}</div>
+      <h3>${s.t}</h3>
+      <p>${s.d}</p>
+      <div class="chips">${s.tech.map(t => `<span class="chip">${t}</span>`).join("")}</div>
+    </div>
+    <ul class="skill-list">${s.l.map(item).join("")}</ul>
+  </article>` : `
   <article class="card">
     <div class="card-icon">${icon(s.i)}</div>
     <h3>${s.t}</h3>
@@ -637,6 +657,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
     whoami: () => {
       line({ text: PROFIL.nom, cls: "cmd" });
       line("Élève en Terminale CIEL · Lycée Maryse Bastié");
+      line("Dépannage informatique · création de sites web pour entreprises");
       line({ text: "→ à la recherche d'un BTS CIEL", cls: "ok" });
     },
     competences: () => SKILLS.forEach(sk => line(["▸ ", { text: sk.t, cls: "cmd" }])),
@@ -717,7 +738,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
 
 // Scroll reveal, staggered per row
 document.querySelectorAll("[data-stagger]").forEach(p =>
-  [...p.children].forEach((c, i) => { c.setAttribute("data-reveal", ""); c.style.setProperty("--d", i % 3); }));
+  [...p.children].forEach((c, i) => { c.setAttribute("data-reveal", ""); c.style.setProperty("--d", c.classList.contains("wide") ? 0 : i % 3); }));
 const revealIO = new IntersectionObserver(entries => entries.forEach(e => {
   if (!e.isIntersecting) return;
   e.target.classList.add("is-in");
