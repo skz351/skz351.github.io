@@ -275,6 +275,42 @@ kbd { font-family: var(--mono); font-size: 11px; color: var(--ink-muted); paddin
 .tl-when { font-family: var(--mono); font-size: 12px; color: var(--ink-tertiary); padding-top: 4px; }
 .tl-row p { font-size: 14px; color: var(--ink-subtle); margin-top: 4px; }
 
+/* Web work */
+.works { display: flex; flex-direction: column; gap: 112px; }
+.work { display: grid; grid-template-columns: 1.4fr 1fr; gap: 64px; align-items: center; }
+.work.rev .work-visual { order: 2; }
+.work-visual { position: relative; padding: 0 48px 48px 0; }
+.work.rev .work-visual { padding: 0 0 48px 48px; }
+.browser {
+  border: 1px solid var(--hairline-strong); border-radius: 12px; overflow: hidden; background: var(--surface-1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 40px 80px -24px rgba(0,0,0,.85);
+}
+.browser-bar { position: relative; display: flex; align-items: center; padding: 10px 14px; border-bottom: 1px solid var(--hairline); }
+.browser-url {
+  position: absolute; left: 50%; transform: translateX(-50%); max-width: 60%;
+  font-family: var(--mono); font-size: 11px; color: var(--ink-tertiary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  background: var(--surface-2); border: 1px solid var(--hairline); border-radius: 6px; padding: 3px 12px;
+}
+.browser img { display: block; width: 100%; height: auto; transition: transform 900ms var(--ease-out); }
+.phone {
+  position: absolute; right: 0; bottom: 0; width: 25%;
+  border: 5px solid #1b1c1e; border-radius: 22px; overflow: hidden; background: #000;
+  box-shadow: 0 0 0 1px var(--hairline-strong), 0 30px 60px -12px rgba(0,0,0,.9);
+}
+.work.rev .phone { right: auto; left: 0; }
+.phone img { display: block; width: 100%; height: auto; }
+.js .work-visual .phone { opacity: 0; transform: translateY(48px); transition: opacity 900ms var(--ease-out) 350ms, transform 1100ms var(--ease-out) 350ms; }
+.js .work-visual.is-in .phone { opacity: 1; transform: none; }
+@media (hover: hover) and (pointer: fine) {
+  .work-visual:hover .browser img { transform: scale(1.025); }
+  .js .work-visual.is-in:hover .phone { transform: translateY(-8px); transition-delay: 0ms; }
+}
+.work-text { display: flex; flex-direction: column; gap: 14px; }
+.work-text h3 { font-size: 32px; letter-spacing: -1px; }
+.work-text > p { color: var(--ink-subtle); }
+.work-text .chips { margin-top: 6px; }
+.work-text .chip { font-family: var(--mono); font-size: 12px; }
+
 /* Roadmap */
 .road { position: relative; }
 .road-track {
@@ -339,6 +375,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
 
 /* Responsive */
 @media (max-width: 1024px) {
+  .work { gap: 40px; }
   h1 { font-size: 56px; letter-spacing: -1.8px; }
   .grid { grid-template-columns: repeat(2, 1fr); }
 }
@@ -360,6 +397,14 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   .term-hint { display: none; }
   .tl-row { grid-template-columns: 1fr; gap: 6px; }
   .parcours { grid-template-columns: 1fr; gap: 32px; }
+  .works { gap: 72px; }
+  .work { grid-template-columns: 1fr; gap: 28px; }
+  .work.rev .work-visual { order: 0; padding: 0 28px 28px 0; }
+  .work-visual { padding: 0 28px 28px 0; }
+  .work.rev .phone { left: auto; right: 0; }
+  .phone { width: 30%; border-width: 4px; border-radius: 16px; }
+  .browser-url { left: auto; right: 10px; transform: none; max-width: calc(100% - 84px); }
+  .work-text h3 { font-size: 26px; }
   .road-track { left: 7px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; -webkit-mask-image: linear-gradient(180deg, #000 80%, transparent); mask-image: linear-gradient(180deg, #000 80%, transparent); }
   .road-fill { transform: scaleY(0); transform-origin: top; }
   .is-in .road-fill { transform: scaleY(1); }
@@ -390,6 +435,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
     <a href="#top" class="brand"><span class="brand-mark" data-initials>PN</span><span data-name>Prénom Nom</span></a>
     <nav class="nav-links" aria-label="Navigation principale">
       <a href="#competences">Compétences</a>
+      <a href="#realisations">Réalisations</a>
       <a href="#parcours">Parcours</a>
       <a href="#objectif">Objectif</a>
     </nav>
@@ -457,6 +503,50 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
         <div class="chips">
           <span class="chip">Windows</span><span class="chip">macOS</span><span class="chip">Ventoy</span><span class="chip">IODD</span><span class="chip">SMTP</span><span class="chip">NFC</span><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Netlify</span>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="realisations">
+    <div class="container">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow path">~/realisations</span>
+        <h2 class="grad">Sites web réalisés</h2>
+        <p class="lead">Des sites conçus de A à Z pour de vrais clients, du design jusqu'à la mise en ligne.</p>
+      </div>
+      <div class="works">
+        <article class="work">
+          <div class="work-visual" data-reveal>
+            <div class="browser">
+              <div class="browser-bar"><div class="term-dots" aria-hidden="true"><i></i><i></i><i></i></div><span class="browser-url">Délikat' · Institut de beauté</span></div>
+              <img src="realisations/delikat-desktop.jpg" width="1600" height="1000" loading="lazy" decoding="async" alt="Page d'accueil du site Délikat', version ordinateur">
+            </div>
+            <div class="phone"><img src="realisations/delikat-mobile.jpg" width="600" height="1300" loading="lazy" decoding="async" alt="Page d'accueil du site Délikat', version mobile"></div>
+          </div>
+          <div class="work-text" data-reveal style="--d:1">
+            <span class="path">Institut de beauté &amp; onglerie · Guéret</span>
+            <h3>Délikat'</h3>
+            <p>Site vitrine pour un institut de beauté : prestations et tarifs, réalisations en photos, avis clients, et vente de cartes cadeaux en ligne.</p>
+            <ul class="skill-list"><li><span>Design sur mesure, fidèle à l'identité de l'institut</span></li><li><span>Vente de cartes cadeaux avec paiement sécurisé</span></li><li><span>Pages légales et formulaire de rétractation</span></li><li><span>Éditions saisonnières : Noël, Halloween, Saint-Valentin, Pâques…</span></li><li><span>Photos optimisées pour un chargement rapide</span></li></ul>
+            <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Stripe</span><span class="chip">Netlify</span></div>
+          </div>
+        </article>
+        <article class="work rev">
+          <div class="work-visual" data-reveal>
+            <div class="browser">
+              <div class="browser-bar"><div class="term-dots" aria-hidden="true"><i></i><i></i><i></i></div><span class="browser-url">FC Guéret · Club de football</span></div>
+              <img src="realisations/fcgueret-desktop.jpg" width="1600" height="1000" loading="lazy" decoding="async" alt="Page d'accueil du site du FC Guéret, version ordinateur">
+            </div>
+            <div class="phone"><img src="realisations/fcgueret-mobile.jpg" width="600" height="1300" loading="lazy" decoding="async" alt="Page d'accueil du site du FC Guéret, version mobile"></div>
+          </div>
+          <div class="work-text" data-reveal style="--d:1">
+            <span class="path">Club de football · Guéret</span>
+            <h3>FC Guéret</h3>
+            <p>Site complet d'un club de football : calendrier et résultats, actualités, effectif, galerie photos et boutique, avec un espace d'administration pour que le club le mette à jour sans coder.</p>
+            <ul class="skill-list"><li><span>Espace admin : matchs, scores, actualités, effectif, galerie, boutique</span></li><li><span>Accueil automatique : prochain match, compte à rebours, derniers résultats</span></li><li><span>Boutique du club avec paiement en ligne</span></li><li><span>Photos optimisées et pages légales</span></li><li><span>Mode d'emploi rédigé pour les bénévoles</span></li></ul>
+            <div class="chips"><span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">JavaScript</span><span class="chip">Espace admin</span><span class="chip">Netlify</span></div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -537,7 +627,7 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
   <div class="container foot">
     <span>© <span id="year"></span> <span data-name>Prénom Nom</span> · Portfolio hébergé sur GitHub Pages</span>
     <div class="foot-links">
-      <a href="#competences">Compétences</a><a href="#parcours">Parcours</a><a href="#objectif">Objectif</a>
+      <a href="#competences">Compétences</a><a href="#realisations">Réalisations</a><a href="#parcours">Parcours</a><a href="#objectif">Objectif</a>
     </div>
   </div>
 </footer>
@@ -639,7 +729,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
       const node = document.createElement(part.href ? "a" : "span");
       node.textContent = part.text;
       if (part.cls) node.className = part.cls;
-      if (part.href) { node.href = part.href; if (!part.href.startsWith("mailto:")) { node.target = "_blank"; node.rel = "noopener"; } }
+      if (part.href) { node.href = part.href; if (part.href.startsWith("http")) { node.target = "_blank"; node.rel = "noopener"; } }
       el.append(node);
     }
     out.append(el);
@@ -651,7 +741,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
     help: () => {
       line({ text: "Commandes disponibles :", cls: "dim" });
       [["whoami", "qui je suis"], ["competences", "ce que je sais faire"], ["parcours", "formation et expériences"],
-       ["objectif", "mon projet professionnel"], ["contact", "me joindre"], ["github", "ouvrir mon GitHub"], ["clear", "effacer l'écran"]]
+       ["objectif", "mon projet professionnel"], ["realisations", "les sites que j'ai créés"], ["contact", "me joindre"], ["github", "ouvrir mon GitHub"], ["clear", "effacer l'écran"]]
         .forEach(([c, d]) => line([{ text: c.padEnd(13), cls: "cmd" }, { text: d, cls: "dim" }]));
     },
     whoami: () => {
@@ -671,6 +761,11 @@ document.getElementById("year").textContent = new Date().getFullYear();
       line("2024–2027  FC Guéret       · communication digitale");
       line("2023       DOCPC, Guéret   · stage d'observation");
     },
+    realisations: () => {
+      line(["▸ ", { text: "Délikat'", cls: "cmd" }, { text: "   institut de beauté · vitrine + cartes cadeaux", cls: "dim" }]);
+      line(["▸ ", { text: "FC Guéret", cls: "cmd" }, { text: "  club de football · site complet + espace admin", cls: "dim" }]);
+      line(["→ ", { text: "voir les captures", href: "#realisations" }]);
+    },
     objectif: () => {
       line("Bac CIEL → BTS CIEL → Licence → Master cybersécurité");
       line({ text: "→ Ingénieur en cybersécurité", cls: "ok" });
@@ -683,7 +778,7 @@ document.getElementById("year").textContent = new Date().getFullYear();
     clear: () => { out.textContent = ""; },
   };
   const ALIASES = { ls: "competences", skills: "competences", "ls competences": "competences", "ls competences/": "competences",
-                    "cat objectif.txt": "objectif", aide: "help", "?": "help", cv: "parcours", mail: "contact" };
+                    "cat objectif.txt": "objectif", aide: "help", "?": "help", sites: "realisations", "ls realisations": "realisations", "ls realisations/": "realisations", cv: "parcours", mail: "contact" };
 
   function run(raw) {
     const cmd = raw.trim().replace(/\s+/g, " ");
