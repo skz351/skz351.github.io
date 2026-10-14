@@ -352,6 +352,9 @@ kbd { font-family: var(--mono); font-size: 11px; color: var(--ink-muted); paddin
 .tools .chip { font-family: var(--mono); font-size: 13px; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips .chip { font-size: 14px; padding: 6px 14px; color: var(--ink-muted); background: var(--surface-1); }
+.chips a.chip { transition: color 150ms ease, border-color 150ms ease, background-color 150ms ease; }
+.chips a.chip:hover { color: var(--ink); border-color: var(--hairline-strong); background: var(--surface-2); }
+.learn { margin-top: 32px; }
 
 /* CTA + footer */
 .cta {
@@ -603,6 +606,13 @@ footer { border-top: 1px solid var(--hairline); padding: 40px 0 48px; font-size:
           <span class="chip">Réseaux &amp; cybersécurité</span>
         </div>
       </div>
+      <div class="learn" data-reveal>
+        <span class="col-title">J'apprends en public sur GitHub</span>
+        <div class="chips">
+          <a class="chip" href="https://github.com/skz351/cyber-lab" target="_blank" rel="noopener">cyber-lab · homelab, scripts et write-ups ↗</a>
+          <a class="chip" href="https://github.com/skz351/cours" target="_blank" rel="noopener">cours · notes et fiches de révision ↗</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -741,7 +751,8 @@ document.getElementById("year").textContent = new Date().getFullYear();
     help: () => {
       line({ text: "Commandes disponibles :", cls: "dim" });
       [["whoami", "qui je suis"], ["competences", "ce que je sais faire"], ["parcours", "formation et expériences"],
-       ["objectif", "mon projet professionnel"], ["realisations", "les sites que j'ai créés"], ["contact", "me joindre"], ["github", "ouvrir mon GitHub"], ["clear", "effacer l'écran"]]
+       ["objectif", "mon projet professionnel"], ["realisations", "les sites que j'ai créés"], ["lab", "mon labo cybersécurité"], ["cours", "mes notes de cours"],
+       ["contact", "me joindre"], ["github", "ouvrir mon GitHub"], ["clear", "effacer l'écran"]]
         .forEach(([c, d]) => line([{ text: c.padEnd(13), cls: "cmd" }, { text: d, cls: "dim" }]));
     },
     whoami: () => {
@@ -770,6 +781,17 @@ document.getElementById("year").textContent = new Date().getFullYear();
       line("Bac CIEL → BTS CIEL → Licence → Master cybersécurité");
       line({ text: "→ Ingénieur en cybersécurité", cls: "ok" });
     },
+    lab: () => {
+      line({ text: "# cyber-lab : j'apprends la cybersécurité en pratique", cls: "dim" });
+      line(["▸ ", { text: "homelab", cls: "cmd" }, { text: "    réseau virtuel : Debian, Kali, pfSense, Windows Server", cls: "dim" }]);
+      line(["▸ ", { text: "scripts", cls: "cmd" }, { text: "    Python et Bash : sous-réseaux, journaux SSH, inventaire", cls: "dim" }]);
+      line(["▸ ", { text: "write-ups", cls: "cmd" }, { text: "  mes solutions de challenges", cls: "dim" }]);
+      line(["→ ", { text: "github.com/skz351/cyber-lab", href: PROFIL.github + "/cyber-lab" }]);
+    },
+    cours: () => {
+      line("Notes de cours et fiches de révision : réseau, Linux, Windows, cybersécurité");
+      line(["→ ", { text: "github.com/skz351/cours", href: PROFIL.github + "/cours" }]);
+    },
     contact: () => {
       if (PROFIL.email) line(["mail    ", { text: PROFIL.email, href: "mailto:" + PROFIL.email }]);
       line(["github  ", { text: PROFIL.github.replace("https://", ""), href: PROFIL.github }]);
@@ -778,7 +800,8 @@ document.getElementById("year").textContent = new Date().getFullYear();
     clear: () => { out.textContent = ""; },
   };
   const ALIASES = { ls: "competences", skills: "competences", "ls competences": "competences", "ls competences/": "competences",
-                    "cat objectif.txt": "objectif", aide: "help", "?": "help", sites: "realisations", "ls realisations": "realisations", "ls realisations/": "realisations", cv: "parcours", mail: "contact" };
+                    "cat objectif.txt": "objectif", aide: "help", "?": "help", sites: "realisations", "ls realisations": "realisations", "ls realisations/": "realisations", cv: "parcours", mail: "contact",
+                    "cyber-lab": "lab", "ls lab": "lab", "cd cyber-lab": "lab", notes: "cours", "ls cours": "cours" };
 
   function run(raw) {
     const cmd = raw.trim().replace(/\s+/g, " ");
